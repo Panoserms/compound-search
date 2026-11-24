@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compound sheet</title>
+<style>
+  :root {
+    --bg: #f6f4ef; --card: #ffffff; --ink: #1d1c1a; --soft: #6b675f; --line: #d9d4c8;
+    --accent: #0b5c4a; --accent-ink: #ffffff; --accent-soft: #dcefe9; --warn: #a13d12; --cut: #c2410c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151614; --card: #1f211e; --ink: #ecebe6; --soft: #a3a097; --line: #3a3d38;
+      --accent: #5cc4a8; --accent-ink: #0d1f1a; --accent-soft: #1f3a33; --warn: #f0a070; --cut: #fb923c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 -apple-system, "Segoe UI", system-ui, sans-serif; }
+  header { position: sticky; top: 0; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .bar { max-width: 860px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: 18px; margin: 0; }
+  .count { color: var(--soft); font-variant-numeric: tabular-nums; }
+  .track { flex: 1 1 160px; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .fill { height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  .primary { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 8px; padding: 8px 14px; font-weight: 600; }
+  main { max-width: 860px; margin: 0 auto; padding: 20px 16px 60px; }
+  .how { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; }
+  .how summary { cursor: pointer; font-weight: 600; }
+  .how ol { margin: 8px 0 0; padding-left: 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px 20px; }
+  .position { color: var(--soft); font-size: 14px; }
+  .word { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; margin: 18px 0 6px; font: 600 34px/1 ui-monospace, "SF Mono", Menlo, monospace; }
+  .letter { padding: 10px 0; }
+  .gap { width: 16px; border: 0; background: transparent; padding: 0; position: relative; border-radius: 4px; }
+  .gap::after { content: ""; position: absolute; left: 50%; top: 4px; bottom: 4px; width: 2px; transform: translateX(-50%); background: var(--line); opacity: 0; }
+  .gap:hover { background: var(--accent-soft); }
+  .gap:hover::after { opacity: 1; }
+  .gap.on { width: 26px; }
+  .gap.on::after { opacity: 1; width: 4px; background: var(--cut); border-radius: 2px; }
+  .gap:focus-visible, .type:focus-visible, .dot:focus-visible, .nav button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .preview { text-align: center; color: var(--soft); min-height: 24px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .context { text-align: center; margin: 14px 0 20px; font-size: 17px; }
+  .context mark { background: var(--accent-soft); color: inherit; padding: 1px 3px; border-radius: 3px; }
+  .types { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+  .type { text-align: left; background: var(--bg); border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .type b { display: block; }
+  .type small { color: var(--soft); }
+  .type kbd { float: right; font: 12px ui-monospace, monospace; color: var(--soft); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
+  .type.on { border-color: var(--accent); background: var(--accent-soft); }
+  .hint { color: var(--warn); min-height: 24px; margin: 10px 0 0; text-align: center; font-weight: 600; }
+  .note { width: 100%; margin-top: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); font: inherit; }
+  .nav { display: flex; justify-content: space-between; margin-top: 14px; }
+  .nav button { background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; }
+  .dots { display: grid; grid-template-columns: repeat(auto-fill, 22px); gap: 5px; margin-top: 22px; }
+  .dot { width: 22px; height: 22px; border-radius: 5px; border: 1px solid var(--line); background: var(--card); padding: 0; font-size: 0; }
+  .dot.done { background: var(--accent); border-color: var(--accent); }
+  .dot.now { outline: 3px solid var(--cut); outline-offset: 1px; }
+  .done-banner { display: none; background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; }
+  .done-banner.show { display: block; }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1>Compound sheet</h1>
+    <span class="count" id="count"></span>
+    <div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div>
+    <button class="primary" id="download">Download CSV</button>
+  </div>
+</header>
+<main>
+  <div class="done-banner" id="banner">All words are labelled. Click <b>Download CSV</b> and save the file as <code>labels/compounds_labels.csv</code> in the project folder.</div>
+  <details class="how" open>
+    <summary>How to label (about 20 seconds per word)</summary>
+    <ol>
+      <li><b>Cut the word.</b> Click between two letters where two parts meet. A linking element stays with the left part: <code>Bundes|gericht</code>, <code>Sonnen|schein</code>. Click again to remove a cut.</li>
+      <li><b>Pick the type.</b> The page then moves to the next word.</li>
+      <li>Your work is saved in this browser as you go. You can close the page and come back.</li>
+    </ol>
+  </details>
+  <div class="card">
+    <div class="position" id="position"></div>
+    <div class="word" id="word"></div>
+    <div class="preview" id="preview"></div>
+    <div class="context" id="context"></div>
+    <div class="types" id="types"></div>
+    <p class="hint" id="hint" role="status"></p>
+    <input class="note" id="note" placeholder="Note (optional)" aria-label="Note">
+    <div class="nav"><button id="back">&larr; Back</button><button id="next">Next &rarr;</button></div>
+  </div>
+  <div class="dots" id="dots" aria-label="All words"></div>
+</main>
+<script>
+const WORDS = [{"id": 1, "word": "Klimax", "context": "Wann war der Klimax von Kiewer Rus", "stratum": "short"}, {"id": 2, "word": "Entscheidung", "context": "Wieso änderte Shell seine Entscheidung zur Versenkung der Brent Spar-Plattform?", "stratum": "long"}, {"id": 3, "word": "Platten", "context": "Welche Tektonischen Platten stoßen in Armenien zusammen? ", "stratum": "short"}, {"id": 4, "word": "Arbeitskräfte", "context": "Wo leben Arbeitskräfte, die Brasília aufgebaut haben, heutzutage?", "stratum": "long"}, {"id": 5, "word": "Elektrolytkondensatoren", "context": "Was passiert, wenn man die Spannung in Elektrolytkondensatoren falsch anschließt?", "stratum": "long"}, {"id": 6, "word": "Hopera", "context": "Welche Rolle hatte Beyonce bei \"Carmen a Hip Hopera\"?", "stratum": "short"}, {"id": 7, "word": "Tagesrhythmus", "context": "Was kann man gegen schnelle Veränderung des Fressverhaltens der Haustiere wegen der Verschiebung des menschlichen Tagesrhythmus machen?", "stratum": "long"}, {"id": 8, "word": "Künstler", "context": "Was mussten viele Künstler tun als der 1. Weltkrieg begann? ", "stratum": "short"}, {"id": 9, "word": "Fantasy", "context": "Welche Final-Fantasy-Spiele wurden in Europa nicht herausgebracht?", "stratum": "short"}, {"id": 10, "word": "Tadschikistan", "context": "Wo verläuft der Pamir Highway in Tadschikistan?", "stratum": "long"}, {"id": 11, "word": "Wissenschaften", "context": "Welche Kritik wurde an schönen Wissenschaften und Künsten während der Aufklärung geübt?", "stratum": "long"}, {"id": 12, "word": "Pflanzenarten", "context": "Wie viele Pflanzenarten wachsen in Israel in der Wildnis?", "stratum": "long"}, {"id": 13, "word": "Reform", "context": "In welchem Jahr wurden die Grenzen von Lancashire durch eine Reform verändert?", "stratum": "short"}, {"id": 14, "word": "Gruppen", "context": "Welche Gruppen von Gliederwürmern gibt es? ", "stratum": "short"}, {"id": 15, "word": "Mittelalters", "context": "Wie unterscheiden sich die Sichten auf den menschlichen Körper in der Renaissance und dem Mittelalters? ", "stratum": "long"}, {"id": 16, "word": "Wirtschaftszweige", "context": "Welches sind die wichtigsten Wirtschaftszweige in Boston?", "stratum": "long"}, {"id": 17, "word": "Präparat", "context": "Aus welchem Jahr stammt das älteste Präparat der Anatomie?", "stratum": "short"}, {"id": 18, "word": "Einwohnerdichte", "context": "Wie hoch ist die Einwohnerdichte in Melbourne?", "stratum": "long"}, {"id": 19, "word": "Luftverschmutzung", "context": "Wann ist die Luftverschmutzung in Mexiko-Stadt besonders belastend?", "stratum": "long"}, {"id": 20, "word": "Geruchsspuren", "context": "Welche Fähigkeit befähigt Hunden zur Verfolgung von Geruchsspuren?", "stratum": "long"}, {"id": 21, "word": "Hauptgebäude", "context": "Seit wann zählt das Hauptgebäude der Bauhaus-Universität in Weimar  zu den UNESCO-Weltkulturerben?", "stratum": "long"}, {"id": 22, "word": "Rhythmik", "context": "Durch was wird der Rhythmus in der cirkadianen Rhythmik bestimmt?", "stratum": "short"}, {"id": 23, "word": "Büchern", "context": "Was ist der Unterschied zwischen Comics und Büchern? ", "stratum": "short"}, {"id": 24, "word": "Zinkherstellung", "context": "Wann wird bei der Zinkherstellung das nasse Verfahren dem trockenen vorgezogen? ", "stratum": "long"}, {"id": 25, "word": "Geologie", "context": "Welche beiden Erdplatten sorgten für die Geologie der Schweiz?", "stratum": "short"}, {"id": 26, "word": "Ballett", "context": "Welche Art von Ballett prägte Nellie Campobello in Mexiko?", "stratum": "short"}, {"id": 27, "word": "Geliebte", "context": "Welche Königin war die Geliebte von Marcus Antonius?", "stratum": "short"}, {"id": 28, "word": "Gattung", "context": "Welche Gattung von Frühmenschen schuf das älteste bekannte Mosaik?", "stratum": "short"}, {"id": 29, "word": "Verluste", "context": "Welche Verluste Erlitt Frankreich in Amerika als Folge des Siebenjährigen Krieges? ", "stratum": "short"}, {"id": 30, "word": "Bauernjahr", "context": "Welche Bedeutung hatte der 11. November für das Bauernjahr?", "stratum": "short"}, {"id": 31, "word": "Kolonialkonflikt", "context": "Bei welcher Schlacht im britische-französischen Kolonialkonflikt besiegte die britische Navy  die gegnerische Flotte?", "stratum": "long"}, {"id": 32, "word": "Ringelwürmern", "context": "Woraus besteht das kardiovaskuläre System bei Ringelwürmern?", "stratum": "long"}, {"id": 33, "word": "Insektensterben", "context": "Aus welchem Grund kommt es zum Insektensterben in Deutschland? ", "stratum": "long"}, {"id": 34, "word": "Pennsylvania", "context": "Welches Hilfsmittel wurde an der University of Pennsylvania bei Berechnungen von Hand eingesetzt?", "stratum": "long"}, {"id": 35, "word": "Punkte", "context": "Was sind die höchsten Punkte der Norfolkinsel?", "stratum": "short"}, {"id": 36, "word": "Kondensatoren", "context": "Welche Norm in Europa sorgt für Schaltzeichen in Kondensatoren?", "stratum": "long"}, {"id": 37, "word": "Preußische", "context": "Welches Ziel verfolgte die Preußische Sprachpolitik?", "stratum": "short"}, {"id": 38, "word": "Zeremonie", "context": "Wo fand die Zeremonie der Verleihung des Avicenna-Preises in Deutschland 2012?", "stratum": "short"}, {"id": 39, "word": "Regierungskoaliton", "context": "Wie heißt die Regierungskoaliton in Mali?", "stratum": "long"}, {"id": 40, "word": "Bauhaus", "context": "Seit wann zählt das Hauptgebäude der Bauhaus-Universität in Weimar  zu den UNESCO-Weltkulturerben?", "stratum": "short"}, {"id": 41, "word": "Erkrankungen", "context": "Zu welchen Erkrankungen kann zu niedriger Druck führen?", "stratum": "long"}, {"id": 42, "word": "Universitäten", "context": "Welche deutschen Unis sind Partner Universitäten der Yale University? ", "stratum": "long"}, {"id": 43, "word": "Massenauswanderung", "context": "Wann kam es zur Massenauswanderung aus Cork?", "stratum": "long"}, {"id": 44, "word": "Lancashire", "context": "Wo liegt Lancashire?", "stratum": "short"}, {"id": 45, "word": "Frühmenschen", "context": "Welche Gattung von Frühmenschen schuf das älteste bekannte Mosaik?", "stratum": "long"}, {"id": 46, "word": "Tommie", "context": "Was passierte bei der Vollstreckung der Todesstrafe von Tommie Smith 1997 in Indiana?", "stratum": "short"}, {"id": 47, "word": "Tageszeit", "context": "Zu welcher Tageszeit finden die meisten Vogelzüge statt?", "stratum": "short"}, {"id": 48, "word": "Wasserbüffel", "context": "Wann wurden Wasserbüffel gezähmt?", "stratum": "long"}, {"id": 49, "word": "Kirche", "context": "Warum hat die Szlachta im 16.Jahrhundert zur evangelischen Kirche gewechselt?", "stratum": "short"}, {"id": 50, "word": "Familien", "context": "Zu welchen Familien der Bedecktsamer gehören uns gut bekannte Früchte?", "stratum": "short"}, {"id": 51, "word": "Tristan", "context": "Welche Datenübertragungsgeschwindigkeit hat Tristan da Cunha?", "stratum": "short"}, {"id": 52, "word": "Schriften", "context": "Welche Schreibrichtung haben die europäischen Schriften? ", "stratum": "short"}, {"id": 53, "word": "Marshall", "context": "Mit wie vielen Schiffen griffen die USA im Pazifikkrieg die Marshall- und Gilbert-Inseln an?", "stratum": "short"}, {"id": 54, "word": "Studienrichtungen", "context": "Zwischen welchen Studienrichtungen können israelische Schüler in der Oberstufe auswählen?", "stratum": "long"}, {"id": 55, "word": "Pockenepidemie", "context": "Wann gab es Pockenepidemie in Boston?", "stratum": "long"}, {"id": 56, "word": "Haustiere", "context": "Was kann man gegen schnelle Veränderung des Fressverhaltens der Haustiere wegen der Verschiebung des menschlichen Tagesrhythmus machen?", "stratum": "short"}, {"id": 57, "word": "Judentum", "context": "Auf was basiert das orthodoxe Judentum? ", "stratum": "short"}, {"id": 58, "word": "Siebenjährigen", "context": "Wer herrschte zur Zeit des Siebenjährigen Krieges in Preußen?", "stratum": "long"}, {"id": 59, "word": "Enklaven", "context": "In welchen Regionen in Italien sind die griechischen Enklaven zu finden?", "stratum": "short"}, {"id": 60, "word": "Atomspaltung", "context": "Wie viel Energie wird bei der Atomspaltung von Uran frei?", "stratum": "long"}, {"id": 61, "word": "Kühnen", "context": "In welchem Schweizer Museum sind die Teppiche von Karl dem Kühnen ausgestellt?", "stratum": "short"}, {"id": 62, "word": "Mitgliedern", "context": "Woraus schließen Rodney Stark und Laurence Iannaccone auf einen stetigen Wechsel unter den Mitgliedern der Zeugen Jehovas?", "stratum": "short"}, {"id": 63, "word": "Symptome", "context": "Welche anderen Symptome können bei Atemproblemen bei Asthma auftreten?", "stratum": "short"}, {"id": 64, "word": "Lhasas", "context": "Welches Gebiet wurde von der Lhasas-Regierung regiert?", "stratum": "short"}, {"id": 65, "word": "Kunstgalerie", "context": "Wie groß ist die Sammlung der nationalen Kunstgalerie in Jerewan?", "stratum": "long"}, {"id": 66, "word": "Justizminister", "context": "Wo war Christian Pfeiffer Justizminister? ", "stratum": "long"}, {"id": 67, "word": "Internationalen", "context": "In welchen Internationalen Organisationen ist Armenien Mitglied? ", "stratum": "long"}, {"id": 68, "word": "Strategie", "context": "Welches Ministerium war Schirmherr der 2014 bekanntgegebenen Biodiversitäts-Strategie?", "stratum": "short"}, {"id": 69, "word": "Freimauergrade", "context": "Welche Freimauergrade bezeichnet man als Johannisfreimaurerei?", "stratum": "long"}, {"id": 70, "word": "Stellenwert", "context": "Welches Fest in Ägypten hat den höchsten Stellenwert?", "stratum": "short"}, {"id": 71, "word": "Verschiebung", "context": "Was kann man gegen schnelle Veränderung des Fressverhaltens der Haustiere wegen der Verschiebung des menschlichen Tagesrhythmus machen?", "stratum": "long"}, {"id": 72, "word": "Holzgewinnung", "context": "Was zählt alles zur Holzgewinnung?", "stratum": "long"}, {"id": 73, "word": "Tschechische", "context": "In welchen Gesetzen steht fest, dass man das Tschechische in der Slowakei oder die slowakische Sprache in Tschechien als Amtssprache benutzen kann?", "stratum": "long"}, {"id": 74, "word": "Infrarot", "context": "Wie schützen sich militärische Einheiten vor Lenkflugkörpern mit Infrarot-Zielsuche?", "stratum": "short"}, {"id": 75, "word": "Vogelzüge", "context": "Zu welcher Tageszeit finden die meisten Vogelzüge statt?", "stratum": "short"}, {"id": 76, "word": "Stadtstaat", "context": "Der Erfolg in welchem Krieg ermöglichte Berns Entwicklung zum Stadtstaat?", "stratum": "short"}, {"id": 77, "word": "Folgen", "context": "Wie wann spürt man Folgen des Erdbebens Am 7. Dezember 1988 in der Armenischen SSR? ", "stratum": "short"}, {"id": 78, "word": "Charlotte", "context": "Wie heißt die Bahn, die Charlotte mit New York City verbindet? ", "stratum": "short"}, {"id": 79, "word": "Bluessängerin", "context": "In welchem Film verkörperte Beyonce die Bluessängerin Etta James?", "stratum": "long"}, {"id": 80, "word": "Energieeinheiten", "context": "Welche Energieeinheiten entsprechen der SI-Einheit Joule?", "stratum": "long"}, {"id": 81, "word": "Uferpromenade", "context": "Seit wann steht die Uferpromenade der Seine unter Schutz der UNESCO?", "stratum": "long"}, {"id": 82, "word": "Judentums", "context": "Nach welcher Überlieferung des Judentums leben die Orthodoxen Juden?", "stratum": "short"}, {"id": 83, "word": "Holzfestigkeit", "context": "Welche Art von Holzfestigkeit ist am höchsten?", "stratum": "long"}, {"id": 84, "word": "Frauenbewegung", "context": "Welches Ziel verfolgte die erste Frauenbewegung in Nigeria?", "stratum": "long"}, {"id": 85, "word": "Sandstein", "context": "Warum haben die malischen Regionen mit Untergründen aus Sandstein große Höhendifferenzen?", "stratum": "short"}, {"id": 86, "word": "Heizlampen", "context": "Welche Lichtfrequenz haben Heizlampen? ", "stratum": "short"}, {"id": 87, "word": "Bevölkerungsgruppe", "context": "Welche Bevölkerungsgruppe lebte in Bergkarabach zu Zeiten der armenischen SSR?  ", "stratum": "long"}, {"id": 88, "word": "Soundtrack", "context": "Wer machte mit Beyoncé den Soundtrack für \"The Best Man\"?", "stratum": "short"}, {"id": 89, "word": "Vorschläge", "context": "Wer macht Vorschläge für Gesetze in Mali?", "stratum": "short"}, {"id": 90, "word": "Zusammenkunft", "context": "Bei welcher Zusammenkunft wählten die Dominikaner das Mantelsymbol als Wappen?", "stratum": "long"}, {"id": 91, "word": "Wirtschaftskrise", "context": "Wann war Florida nach der Wirtschaftskrise 1837 bankrott?", "stratum": "long"}, {"id": 92, "word": "Religionen", "context": "Wie viele Menschen in Nigeria üben einheimische Religionen aus?", "stratum": "short"}, {"id": 93, "word": "Eisvertiefungen", "context": "Welchen Vorteil bringen stationäre Eisvertiefungen der Gletscher?", "stratum": "long"}, {"id": 94, "word": "Religionshäuser", "context": "Welche Religionshäuser gibt es für Muslime in Hannover? ", "stratum": "long"}, {"id": 95, "word": "Waffenstillstand", "context": "In welchem Jahr schloss Friedrich II. einen Waffenstillstand mit Sachsen?", "stratum": "long"}, {"id": 96, "word": "Institutionen", "context": "Was ist ein großes Problem für die Arbeit der staatlichen Institutionen in Nigeria?", "stratum": "long"}, {"id": 97, "word": "Ablösung", "context": "Wie viel Ablösung zahlte der FC Arsenal für Dennis Bergkamp?", "stratum": "short"}, {"id": 98, "word": "Griechenland", "context": "Wann ist das Kallikratis-Gesetz in Griechenland in Kraft getreten?", "stratum": "long"}, {"id": 99, "word": "Florida", "context": "Wie groß ist Florida?", "stratum": "short"}, {"id": 100, "word": "Prägeperiode", "context": "Für wie viel Geld wurde eine 1-Dollar-Münze aus Silber aus der Prägeperiode 1794–1803 im Jahr  2013 verkauft?", "stratum": "long"}];
+const TYPES = [
+  {name: "compound", text: "Compound", help: "The parts keep their meaning: Tabak|konzern", cuts: true},
+  {name: "lexicalised compound", text: "Lexicalised compound", help: "Built from parts, but the meaning is its own: Bahn|hof", cuts: true},
+  {name: "name", text: "Name", help: "A proper name. Cut it only if you see real parts.", cuts: false},
+  {name: "not a compound", text: "Not a compound", help: "One word, or a derived word: Regierung", cuts: false, clears: true},
+];
+const KEY = "compound-search-labels-v1";
+let labels = {};
+try { labels = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { labels = {}; }
+let current = Math.max(0, WORDS.findIndex(w => !(labels[w.id] && labels[w.id].type)));
+const $ = id => document.getElementById(id);
+const entry = w => labels[w.id] || (labels[w.id] = {cuts: [], type: "", note: ""});
+function save() { try { localStorage.setItem(KEY, JSON.stringify(labels)); } catch (e) {} }
+function splitText(w) {
+  const cuts = entry(w).cuts.slice().sort((a, b) => a - b);
+  let out = [], last = 0;
+  for (const c of cuts) { out.push(w.word.slice(last, c)); last = c; }
+  out.push(w.word.slice(last));
+  return out;
+}
+function render() {
+  const w = WORDS[current], e = entry(w);
+  $("position").textContent = "Word " + (current + 1) + " of " + WORDS.length;
+  const box = $("word"); box.textContent = "";
+  [...w.word].forEach((ch, i) => {
+    if (i > 0) {
+      const gap = document.createElement("button");
+      gap.className = "gap" + (e.cuts.includes(i) ? " on" : "");
+      gap.setAttribute("aria-label", "Cut between " + w.word[i - 1] + " and " + ch);
+      gap.setAttribute("aria-pressed", e.cuts.includes(i));
+      gap.onclick = () => toggleCut(i);
+      box.appendChild(gap);
+    }
+    const span = document.createElement("span");
+    span.className = "letter"; span.textContent = ch;
+    box.appendChild(span);
+  });
+  const pieces = splitText(w);
+  $("preview").textContent = pieces.length > 1 ? pieces.join(" + ") : "no cut";
+  const ctx = $("context"); ctx.textContent = "";
+  const at = w.context.indexOf(w.word);
+  if (at < 0) { ctx.textContent = w.context; } else {
+    ctx.append(w.context.slice(0, at));
+    const mark = document.createElement("mark"); mark.textContent = w.word; ctx.append(mark);
+    ctx.append(w.context.slice(at + w.word.length));
+  }
+  const types = $("types"); types.textContent = "";
+  TYPES.forEach((t, i) => {
+    const b = document.createElement("button");
+    b.className = "type" + (e.type === t.name ? " on" : "");
+    b.setAttribute("aria-pressed", e.type === t.name);
+    const kbd = document.createElement("kbd"); kbd.textContent = i + 1;
+    const title = document.createElement("b"); title.textContent = t.text;
+    const help = document.createElement("small"); help.textContent = t.help;
+    b.append(kbd, title, help);
+    b.onclick = () => pickType(t);
+    types.appendChild(b);
+  });
+  $("note").value = e.note || "";
+  $("hint").textContent = "";
+  const done = WORDS.filter(x => labels[x.id] && labels[x.id].type).length;
+  $("count").textContent = done + " of " + WORDS.length + " labelled";
+  $("fill").style.width = (100 * done / WORDS.length) + "%";
+  $("banner").classList.toggle("show", done === WORDS.length);
+  const dots = $("dots"); dots.textContent = "";
+  WORDS.forEach((x, i) => {
+    const d = document.createElement("button");
+    d.className = "dot" + (labels[x.id] && labels[x.id].type ? " done" : "") + (i === current ? " now" : "");
+    d.title = (i + 1) + ". " + x.word;
+    d.textContent = x.word;
+    d.onclick = () => { current = i; render(); };
+    dots.appendChild(d);
+  });
+}
+function toggleCut(i) {
+  const e = entry(WORDS[current]);
+  e.cuts = e.cuts.includes(i) ? e.cuts.filter(c => c !== i) : e.cuts.concat(i).sort((a, b) => a - b);
+  if (e.type === "not a compound" && e.cuts.length) e.type = "";
+  save(); render();
+}
+function pickType(t) {
+  const e = entry(WORDS[current]);
+  if (t.cuts && e.cuts.length === 0) {
+    render();
+    $("hint").textContent = "First click between the letters to cut the word, then pick this type.";
+    return;
+  }
+  if (t.clears) e.cuts = [];
+  e.type = t.name; save(); render();
+  setTimeout(() => step(1), 350);
+}
+function step(by) { current = Math.min(WORDS.length - 1, Math.max(0, current + by)); render(); }
+$("back").onclick = () => step(-1);
+$("next").onclick = () => step(1);
+$("note").oninput = ev => { entry(WORDS[current]).note = ev.target.value; save(); };
+document.addEventListener("keydown", ev => {
+  if (ev.target === $("note")) return;
+  if (ev.key >= "1" && ev.key <= "4") pickType(TYPES[Number(ev.key) - 1]);
+  if (ev.key === "ArrowRight") step(1);
+  if (ev.key === "ArrowLeft") step(-1);
+});
+$("download").onclick = () => {
+  const quote = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const rows = [["id", "word", "split", "type", "note", "stratum", "context"]];
+  for (const w of WORDS) {
+    const e = entry(w);
+    rows.push([w.id, w.word, e.type ? splitText(w).join("+") : "", e.type, e.note || "", w.stratum, w.context]);
+  }
+  const csv = rows.map(r => r.map(quote).join(",")).join("\n") + "\n";
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([csv], {type: "text/csv;charset=utf-8"}));
+  link.download = "compounds_labels.csv";
+  document.body.appendChild(link); link.click(); link.remove();
+};
+render();
+</script>
+</body>
+</html>

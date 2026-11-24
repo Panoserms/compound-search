@@ -1,0 +1,198 @@
+{
+  "stage": 0,
+  "system": "bm25_plain",
+  "note": "Dev set only. The test questions were not searched.",
+  "config": {
+    "bm25": {
+      "library": "bm25s 0.3.16",
+      "method": "lucene",
+      "k1": 1.2,
+      "b": 0.75
+    },
+    "tokenizer": "plain_tokens: NFC, lowercase, runs of letters/digits, no stop words, no stemming",
+    "passage_pool": "all GermanDPR positives and hard negatives, train and test, deduplicated by text",
+    "dev": {
+      "size": 1000,
+      "seed": 13,
+      "source": "random sample of distinct train questions"
+    }
+  },
+  "data": {
+    "germandpr": {
+      "train": {
+        "rows": 9275,
+        "distinct_questions": 9255,
+        "questions_with_more_than_one_gold": 13,
+        "positive_contexts": 9275,
+        "distinct_positive_contexts": 2281,
+        "hard_negative_contexts": 27811,
+        "distinct_hard_negative_contexts": 22184,
+        "hard_negatives_per_question": {
+          "1": 6,
+          "2": 2,
+          "3": 9267
+        },
+        "median_question_words": 8,
+        "median_positive_words": 173,
+        "median_hard_negative_words": 124
+      },
+      "test": {
+        "rows": 1025,
+        "distinct_questions": 1025,
+        "questions_with_more_than_one_gold": 0,
+        "positive_contexts": 1025,
+        "distinct_positive_contexts": 192,
+        "hard_negative_contexts": 3075,
+        "distinct_hard_negative_contexts": 2690,
+        "hard_negatives_per_question": {
+          "3": 1025
+        },
+        "median_question_words": 9,
+        "median_positive_words": 187,
+        "median_hard_negative_words": 126
+      },
+      "overlap": {
+        "test_questions_also_in_train": 0,
+        "test_positives_also_train_positives": 1,
+        "test_positives_also_train_hard_negatives": 37,
+        "positives_that_are_also_someones_hard_negative": 526
+      },
+      "passage_pool": {
+        "distinct_passages": 26372,
+        "distinct_after_whitespace_normalisation": 26372,
+        "median_words": 124.0,
+        "total_plain_tokens": 3834077
+      }
+    },
+    "germanquad": {
+      "train": {
+        "rows": 11518,
+        "distinct_questions": 11480,
+        "distinct_contexts": 2540,
+        "contexts_identical_to_a_germandpr_positive": 2472,
+        "contexts_already_in_passage_pool": 2487,
+        "answers_per_question": {
+          "1": 11518
+        }
+      },
+      "test": {
+        "rows": 2204,
+        "distinct_questions": 2203,
+        "distinct_contexts": 474,
+        "contexts_identical_to_a_germandpr_positive": 0,
+        "contexts_already_in_passage_pool": 55,
+        "answers_per_question": {
+          "2": 76,
+          "3": 2128
+        }
+      },
+      "germandpr_test_questions_found_in_germanquad_test": 0
+    }
+  },
+  "pools": {
+    "as_shipped": "every passage competes for every question",
+    "own_hard_negatives_dropped": "each question's own BM25-mined hard negatives are removed from its ranking; they remain distractors for all other questions"
+  },
+  "dev": {
+    "as_shipped": {
+      "n_queries": 1000,
+      "own_hard_negatives": {
+        "mean_in_top10": 2.988,
+        "share_of_queries_where_top1_is_one": 0.732,
+        "share_of_queries_where_one_outranks_gold": 0.756
+      },
+      "recall@1": 0.228,
+      "recall@5": 0.5505,
+      "recall@10": 0.693,
+      "recall@20": 0.779,
+      "recall@100": 0.901,
+      "mrr@10": 0.35086587301587246,
+      "recall@10_ci95": [
+        0.6629667003027245,
+        0.7223353554160785
+      ],
+      "mrr@10_ci95": [
+        0.32610719541826116,
+        0.37626038308951154
+      ],
+      "misses@10": 307,
+      "misses@10_with_answer_string_in_a_retrieved_passage": 25,
+      "queries_with_a_13plus_letter_word": 306,
+      "misses@10_with_a_13plus_letter_word": 91
+    },
+    "own_hard_negatives_dropped": {
+      "n_queries": 1000,
+      "recall@1": 0.4365,
+      "recall@5": 0.6595,
+      "recall@10": 0.741,
+      "recall@20": 0.797,
+      "recall@100": 0.903,
+      "mrr@10": 0.5322980158730155,
+      "recall@10_ci95": [
+        0.713582555231265,
+        0.768756579783985
+      ],
+      "mrr@10_ci95": [
+        0.5040385773874436,
+        0.5606511494784446
+      ],
+      "misses@10": 259,
+      "misses@10_with_answer_string_in_a_retrieved_passage": 25,
+      "queries_with_a_13plus_letter_word": 306,
+      "misses@10_with_a_13plus_letter_word": 81
+    }
+  },
+  "all_train_questions_cross_check": {
+    "as_shipped": {
+      "n_queries": 9255,
+      "own_hard_negatives": {
+        "mean_in_top10": 2.983900594273366,
+        "share_of_queries_where_top1_is_one": 0.7056726094003242,
+        "share_of_queries_where_one_outranks_gold": 0.7352782279848731
+      },
+      "recall@1": 0.24246353322528363,
+      "recall@5": 0.5626148028092923,
+      "recall@10": 0.7017828200972447,
+      "recall@20": 0.7857374392220421,
+      "recall@100": 0.9062668827660724,
+      "mrr@10": 0.36747974068071276,
+      "recall@10_ci95": [
+        0.6895551286536648,
+        0.7137810251257526
+      ],
+      "mrr@10_ci95": [
+        0.35626204021789065,
+        0.3787032713337466
+      ],
+      "misses@10": 2758,
+      "misses@10_with_answer_string_in_a_retrieved_passage": 310,
+      "queries_with_a_13plus_letter_word": 3115,
+      "misses@10_with_a_13plus_letter_word": 978
+    },
+    "own_hard_negatives_dropped": {
+      "n_queries": 9255,
+      "recall@1": 0.45548352242031337,
+      "recall@5": 0.664559697460832,
+      "recall@10": 0.7379254457050243,
+      "recall@20": 0.802539168017288,
+      "recall@100": 0.9083198271204754,
+      "mrr@10": 0.545739111419824,
+      "recall@10_ci95": [
+        0.7261828304640228,
+        0.7493547068726885
+      ],
+      "mrr@10_ci95": [
+        0.5335061717061605,
+        0.5579225354096354
+      ],
+      "misses@10": 2423,
+      "misses@10_with_answer_string_in_a_retrieved_passage": 300,
+      "queries_with_a_13plus_letter_word": 3115,
+      "misses@10_with_a_13plus_letter_word": 883
+    }
+  },
+  "timing_seconds": {
+    "index_build": 2.66,
+    "search_dev": 0.43
+  }
+}

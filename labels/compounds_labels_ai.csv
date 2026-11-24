@@ -1,0 +1,101 @@
+id,word,split,type,note,stratum,context
+1,Klimax,,not a compound,,short,Wann war der Klimax von Kiewer Rus
+2,Entscheidung,,not a compound,derived: entscheid + -ung,long,Wieso änderte Shell seine Entscheidung zur Versenkung der Brent Spar-Plattform?
+3,Platten,,not a compound,,short,Welche Tektonischen Platten stoßen in Armenien zusammen? 
+4,Arbeitskräfte,Arbeits+kräfte,compound,,long,"Wo leben Arbeitskräfte, die Brasília aufgebaut haben, heutzutage?"
+5,Elektrolytkondensatoren,Elektrolyt+kondensatoren,compound,,long,"Was passiert, wenn man die Spannung in Elektrolytkondensatoren falsch anschließt?"
+6,Hopera,,name,blend in a film title (Hip Hopera),short,"Welche Rolle hatte Beyonce bei ""Carmen a Hip Hopera""?"
+7,Tagesrhythmus,Tages+rhythmus,compound,,long,Was kann man gegen schnelle Veränderung des Fressverhaltens der Haustiere wegen der Verschiebung des menschlichen Tagesrhythmus machen?
+8,Künstler,,not a compound,derived: Kunst + -ler,short,Was mussten viele Künstler tun als der 1. Weltkrieg begann? 
+9,Fantasy,,name,part of a title (Final Fantasy),short,Welche Final-Fantasy-Spiele wurden in Europa nicht herausgebracht?
+10,Tadschikistan,,name,,long,Wo verläuft der Pamir Highway in Tadschikistan?
+11,Wissenschaften,,not a compound,derived: Wissen + -schaft,long,Welche Kritik wurde an schönen Wissenschaften und Künsten während der Aufklärung geübt?
+12,Pflanzenarten,Pflanzen+arten,compound,,long,Wie viele Pflanzenarten wachsen in Israel in der Wildnis?
+13,Reform,,not a compound,,short,In welchem Jahr wurden die Grenzen von Lancashire durch eine Reform verändert?
+14,Gruppen,,not a compound,,short,Welche Gruppen von Gliederwürmern gibt es? 
+15,Mittelalters,Mittel+alters,lexicalised compound,,long,Wie unterscheiden sich die Sichten auf den menschlichen Körper in der Renaissance und dem Mittelalters? 
+16,Wirtschaftszweige,Wirtschafts+zweige,compound,,long,Welches sind die wichtigsten Wirtschaftszweige in Boston?
+17,Präparat,,not a compound,,short,Aus welchem Jahr stammt das älteste Präparat der Anatomie?
+18,Einwohnerdichte,Einwohner+dichte,compound,,long,Wie hoch ist die Einwohnerdichte in Melbourne?
+19,Luftverschmutzung,Luft+verschmutzung,compound,,long,Wann ist die Luftverschmutzung in Mexiko-Stadt besonders belastend?
+20,Geruchsspuren,Geruchs+spuren,compound,,long,Welche Fähigkeit befähigt Hunden zur Verfolgung von Geruchsspuren?
+21,Hauptgebäude,Haupt+gebäude,compound,,long,Seit wann zählt das Hauptgebäude der Bauhaus-Universität in Weimar  zu den UNESCO-Weltkulturerben?
+22,Rhythmik,,not a compound,,short,Durch was wird der Rhythmus in der cirkadianen Rhythmik bestimmt?
+23,Büchern,,not a compound,,short,Was ist der Unterschied zwischen Comics und Büchern? 
+24,Zinkherstellung,Zink+herstellung,compound,,long,Wann wird bei der Zinkherstellung das nasse Verfahren dem trockenen vorgezogen? 
+25,Geologie,,not a compound,"neoclassical formation (geo + logie), no free parts",short,Welche beiden Erdplatten sorgten für die Geologie der Schweiz?
+26,Ballett,,not a compound,,short,Welche Art von Ballett prägte Nellie Campobello in Mexiko?
+27,Geliebte,,not a compound,,short,Welche Königin war die Geliebte von Marcus Antonius?
+28,Gattung,,not a compound,,short,Welche Gattung von Frühmenschen schuf das älteste bekannte Mosaik?
+29,Verluste,,not a compound,,short,Welche Verluste Erlitt Frankreich in Amerika als Folge des Siebenjährigen Krieges? 
+30,Bauernjahr,Bauern+jahr,compound,,short,Welche Bedeutung hatte der 11. November für das Bauernjahr?
+31,Kolonialkonflikt,Kolonial+konflikt,compound,,long,Bei welcher Schlacht im britische-französischen Kolonialkonflikt besiegte die britische Navy  die gegnerische Flotte?
+32,Ringelwürmern,Ringel+würmern,compound,,long,Woraus besteht das kardiovaskuläre System bei Ringelwürmern?
+33,Insektensterben,Insekten+sterben,compound,,long,Aus welchem Grund kommt es zum Insektensterben in Deutschland? 
+34,Pennsylvania,,name,,long,Welches Hilfsmittel wurde an der University of Pennsylvania bei Berechnungen von Hand eingesetzt?
+35,Punkte,,not a compound,,short,Was sind die höchsten Punkte der Norfolkinsel?
+36,Kondensatoren,,not a compound,,long,Welche Norm in Europa sorgt für Schaltzeichen in Kondensatoren?
+37,Preußische,,not a compound,adjective derived from a name,short,Welches Ziel verfolgte die Preußische Sprachpolitik?
+38,Zeremonie,,not a compound,,short,Wo fand die Zeremonie der Verleihung des Avicenna-Preises in Deutschland 2012?
+39,Regierungskoaliton,Regierungs+koaliton,compound,misspelt in the question (Koalition),long,Wie heißt die Regierungskoaliton in Mali?
+40,Bauhaus,Bau+haus,name,name with real parts,short,Seit wann zählt das Hauptgebäude der Bauhaus-Universität in Weimar  zu den UNESCO-Weltkulturerben?
+41,Erkrankungen,,not a compound,,long,Zu welchen Erkrankungen kann zu niedriger Druck führen?
+42,Universitäten,,not a compound,,long,Welche deutschen Unis sind Partner Universitäten der Yale University? 
+43,Massenauswanderung,Massen+auswanderung,compound,"Auswanderung is a particle formation, not cut",long,Wann kam es zur Massenauswanderung aus Cork?
+44,Lancashire,,name,,short,Wo liegt Lancashire?
+45,Frühmenschen,Früh+menschen,compound,,long,Welche Gattung von Frühmenschen schuf das älteste bekannte Mosaik?
+46,Tommie,,name,,short,Was passierte bei der Vollstreckung der Todesstrafe von Tommie Smith 1997 in Indiana?
+47,Tageszeit,Tages+zeit,compound,,short,Zu welcher Tageszeit finden die meisten Vogelzüge statt?
+48,Wasserbüffel,Wasser+büffel,compound,,long,Wann wurden Wasserbüffel gezähmt?
+49,Kirche,,not a compound,,short,Warum hat die Szlachta im 16.Jahrhundert zur evangelischen Kirche gewechselt?
+50,Familien,,not a compound,,short,Zu welchen Familien der Bedecktsamer gehören uns gut bekannte Früchte?
+51,Tristan,,name,,short,Welche Datenübertragungsgeschwindigkeit hat Tristan da Cunha?
+52,Schriften,,not a compound,,short,Welche Schreibrichtung haben die europäischen Schriften? 
+53,Marshall,,name,,short,Mit wie vielen Schiffen griffen die USA im Pazifikkrieg die Marshall- und Gilbert-Inseln an?
+54,Studienrichtungen,Studien+richtungen,compound,,long,Zwischen welchen Studienrichtungen können israelische Schüler in der Oberstufe auswählen?
+55,Pockenepidemie,Pocken+epidemie,compound,,long,Wann gab es Pockenepidemie in Boston?
+56,Haustiere,Haus+tiere,compound,,short,Was kann man gegen schnelle Veränderung des Fressverhaltens der Haustiere wegen der Verschiebung des menschlichen Tagesrhythmus machen?
+57,Judentum,,not a compound,derived: Jude + -tum,short,Auf was basiert das orthodoxe Judentum? 
+58,Siebenjährigen,,not a compound,borderline: derived from the phrase 'sieben Jahre' + -ig; -jährig is not a free word,long,Wer herrschte zur Zeit des Siebenjährigen Krieges in Preußen?
+59,Enklaven,,not a compound,,short,In welchen Regionen in Italien sind die griechischen Enklaven zu finden?
+60,Atomspaltung,Atom+spaltung,compound,,long,Wie viel Energie wird bei der Atomspaltung von Uran frei?
+61,Kühnen,,not a compound,adjective used as an epithet,short,In welchem Schweizer Museum sind die Teppiche von Karl dem Kühnen ausgestellt?
+62,Mitgliedern,,not a compound,"borderline: mit + Glied, first part is a particle, not a content word",short,Woraus schließen Rodney Stark und Laurence Iannaccone auf einen stetigen Wechsel unter den Mitgliedern der Zeugen Jehovas?
+63,Symptome,,not a compound,,short,Welche anderen Symptome können bei Atemproblemen bei Asthma auftreten?
+64,Lhasas,,name,,short,Welches Gebiet wurde von der Lhasas-Regierung regiert?
+65,Kunstgalerie,Kunst+galerie,compound,,long,Wie groß ist die Sammlung der nationalen Kunstgalerie in Jerewan?
+66,Justizminister,Justiz+minister,compound,,long,Wo war Christian Pfeiffer Justizminister? 
+67,Internationalen,,not a compound,prefix formation: inter + national,long,In welchen Internationalen Organisationen ist Armenien Mitglied? 
+68,Strategie,,not a compound,,short,Welches Ministerium war Schirmherr der 2014 bekanntgegebenen Biodiversitäts-Strategie?
+69,Freimauergrade,Frei+mauer+grade,compound,misspelt in the question (Freimaurergrade),long,Welche Freimauergrade bezeichnet man als Johannisfreimaurerei?
+70,Stellenwert,Stellen+wert,lexicalised compound,,short,Welches Fest in Ägypten hat den höchsten Stellenwert?
+71,Verschiebung,,not a compound,,long,Was kann man gegen schnelle Veränderung des Fressverhaltens der Haustiere wegen der Verschiebung des menschlichen Tagesrhythmus machen?
+72,Holzgewinnung,Holz+gewinnung,compound,,long,Was zählt alles zur Holzgewinnung?
+73,Tschechische,,not a compound,adjective derived from a name,long,"In welchen Gesetzen steht fest, dass man das Tschechische in der Slowakei oder die slowakische Sprache in Tschechien als Amtssprache benutzen kann?"
+74,Infrarot,,not a compound,borderline: Latin prefix infra + rot,short,Wie schützen sich militärische Einheiten vor Lenkflugkörpern mit Infrarot-Zielsuche?
+75,Vogelzüge,Vogel+züge,compound,,short,Zu welcher Tageszeit finden die meisten Vogelzüge statt?
+76,Stadtstaat,Stadt+staat,compound,,short,Der Erfolg in welchem Krieg ermöglichte Berns Entwicklung zum Stadtstaat?
+77,Folgen,,not a compound,,short,Wie wann spürt man Folgen des Erdbebens Am 7. Dezember 1988 in der Armenischen SSR? 
+78,Charlotte,,name,,short,"Wie heißt die Bahn, die Charlotte mit New York City verbindet? "
+79,Bluessängerin,Blues+sängerin,compound,,long,In welchem Film verkörperte Beyonce die Bluessängerin Etta James?
+80,Energieeinheiten,Energie+einheiten,compound,,long,Welche Energieeinheiten entsprechen der SI-Einheit Joule?
+81,Uferpromenade,Ufer+promenade,compound,,long,Seit wann steht die Uferpromenade der Seine unter Schutz der UNESCO?
+82,Judentums,,not a compound,derived: Jude + -tum,short,Nach welcher Überlieferung des Judentums leben die Orthodoxen Juden?
+83,Holzfestigkeit,Holz+festigkeit,compound,,long,Welche Art von Holzfestigkeit ist am höchsten?
+84,Frauenbewegung,Frauen+bewegung,compound,,long,Welches Ziel verfolgte die erste Frauenbewegung in Nigeria?
+85,Sandstein,Sand+stein,compound,,short,Warum haben die malischen Regionen mit Untergründen aus Sandstein große Höhendifferenzen?
+86,Heizlampen,Heiz+lampen,compound,verb stem + noun,short,Welche Lichtfrequenz haben Heizlampen? 
+87,Bevölkerungsgruppe,Bevölkerungs+gruppe,compound,,long,Welche Bevölkerungsgruppe lebte in Bergkarabach zu Zeiten der armenischen SSR?  
+88,Soundtrack,Sound+track,lexicalised compound,English loan compound,short,"Wer machte mit Beyoncé den Soundtrack für ""The Best Man""?"
+89,Vorschläge,,not a compound,particle formation: vor + Schlag,short,Wer macht Vorschläge für Gesetze in Mali?
+90,Zusammenkunft,,not a compound,derived from zusammenkommen; -kunft is not a free word,long,Bei welcher Zusammenkunft wählten die Dominikaner das Mantelsymbol als Wappen?
+91,Wirtschaftskrise,Wirtschafts+krise,compound,,long,Wann war Florida nach der Wirtschaftskrise 1837 bankrott?
+92,Religionen,,not a compound,,short,Wie viele Menschen in Nigeria üben einheimische Religionen aus?
+93,Eisvertiefungen,Eis+vertiefungen,compound,,long,Welchen Vorteil bringen stationäre Eisvertiefungen der Gletscher?
+94,Religionshäuser,Religions+häuser,compound,,long,Welche Religionshäuser gibt es für Muslime in Hannover? 
+95,Waffenstillstand,Waffen+still+stand,lexicalised compound,,long,In welchem Jahr schloss Friedrich II. einen Waffenstillstand mit Sachsen?
+96,Institutionen,,not a compound,,long,Was ist ein großes Problem für die Arbeit der staatlichen Institutionen in Nigeria?
+97,Ablösung,,not a compound,,short,Wie viel Ablösung zahlte der FC Arsenal für Dennis Bergkamp?
+98,Griechenland,Griechen+land,name,name with real parts,long,Wann ist das Kallikratis-Gesetz in Griechenland in Kraft getreten?
+99,Florida,,name,,short,Wie groß ist Florida?
+100,Prägeperiode,Präge+periode,compound,verb stem + noun,long,Für wie viel Geld wurde eine 1-Dollar-Münze aus Silber aus der Prägeperiode 1794–1803 im Jahr  2013 verkauft?

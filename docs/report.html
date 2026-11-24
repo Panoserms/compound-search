@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compound Search: project report</title>
+<style>
+:root { --bg:#ffffff; --panel:#f6f8fa; --ink:#1f2328; --soft:#59636e; --line:#d1d9e0; --band:#dfe5ea; --accent:#0b5c4a; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#0d1117; --panel:#161b22; --ink:#f0f6fc; --soft:#9198a1; --line:#3d444d; --band:#2a313a; --accent:#5cc4a8; }
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0 auto; max-width: 900px; padding: 32px 16px 64px; background: var(--bg); color: var(--ink);
+       font: 16px/1.6 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+h1 { font-size: 30px; line-height: 1.2; margin: 0 0 6px; }
+h2 { font-size: 21px; margin: 44px 0 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+h3 { font-size: 16px; margin: 22px 0 6px; }
+p { margin: 8px 0; }
+.lead { font-size: 18px; color: var(--soft); margin: 0 0 4px; }
+.meta { color: var(--soft); font-size: 14px; }
+ul, ol { padding-left: 22px; margin: 6px 0; }
+li { margin: 3px 0; }
+li > ul, li > ol { margin: 2px 0 4px; }
+code { font: 13px ui-monospace, "SF Mono", Menlo, monospace; background: var(--panel); padding: 1px 4px; border-radius: 4px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 18px 0 6px; }
+.tile { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.tile b { display: block; font-size: 24px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.tile span { display: block; font-size: 14px; color: var(--soft); margin-top: 4px; }
+.tile em { display: block; font-style: normal; font-size: 13px; margin-top: 6px; }
+.note { background: var(--panel); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 14px 0; }
+figure { margin: 16px 0; }
+figure svg { display: block; width: 100%; height: auto; }
+figcaption { color: var(--soft); font-size: 14px; margin: 6px 0 10px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; margin: 8px 0; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--soft); font-weight: 600; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+.yes { font-weight: 600; white-space: nowrap; }
+.no { font-weight: 600; white-space: nowrap; text-decoration: underline; text-decoration-style: dotted; }
+td:first-child { white-space: nowrap; }
+.hy-id { font-size: 13px; font-weight: 600; fill: var(--ink); }
+.hy-q, .hy-res { font-size: 13px; fill: var(--ink); }
+.hy-res { font-variant-numeric: tabular-nums; }
+.hy-small, .hy-tick { font-size: 11px; fill: var(--soft); }
+.hy-grid { stroke: var(--line); stroke-width: 1; }
+.hy-zero { stroke: var(--soft); stroke-width: 1.5; }
+.hy-band { fill: var(--band); }
+.hy-ci { stroke: var(--soft); stroke-width: 2; stroke-linecap: round; }
+.hy-dot { stroke: var(--ink); stroke-width: 2; fill: var(--bg); }
+.hy-dot.supported { fill: var(--ink); }
+@media print { body { max-width: none; padding: 0; } h2 { break-after: avoid; } figure, table, .tile { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<h1>Compound Search</h1>
+<p class="lead">Do stemming and compound splitting still help German search, and is anything left of that help once a neural model is added?</p>
+<p class="meta">Project report, 12 November 2026. Every number is read from the study's result files when this page is built.</p>
+
+<div class="tiles"><div class="tile"><b>70.8% → 81.4%</b><span>BM25 with stems and split compounds</span><em>+10.5 points; supported</em></div><div class="tile"><b>+3.5 points</b><span>still there inside a BM25 + dense hybrid</span><em>the main question; supported</em></div><div class="tile"><b>92.4% vs. 92.4%</b><span>best hybrid against the dense model alone</span><em>45 questions won, 45 lost; not supported</em></div><div class="tile"><b>+0.8 points</b><span>from LLM rewriting of unsure queries</span><em>Holm p = 0.106; not supported</em></div></div>
+<p class="meta">Recall@10 on 1,025 test questions: how often the right passage is among the first ten results. Four of six hypotheses were supported.</p>
+
+<h2>1. What the project is</h2>
+<ul>
+  <li><b>The problem.</b> German glues nouns together. A question asks for the <i>Einwohnerdichte</i> of Melbourne; the passage that answers it says <i>Einwohnerzahl</i> and <i>Bevölkerungsdichte</i>. A keyword search finds the city's name and nothing for the thing that is asked about.</li>
+  <li><b>The classic fix.</b> Reduce words to their stems and cut compounds into their parts.</li>
+  <li><b>The open question.</b> Search engines now also use neural ("dense") models, which compare meaning instead of words. Does the old linguistic work still pay once such a model is in the system?</li>
+  <li><b>What the study does.</b> It tests 10 systems, from plain keyword search to a hybrid with an LLM, against six hypotheses that were written down before the systems existed.</li>
+</ul>
+
+<h2>2. How it was set up</h2>
+<ul>
+  <li><b>Data:</b> GermanDPR (CC BY 4.0), German Wikipedia.
+    <ul>
+      <li>26,372 passages to search in.</li>
+      <li>1,000 development questions on 778 gold passages. Every choice was made here.</li>
+      <li>1,025 test questions on 192 gold passages, held out until the configuration was frozen.</li>
+    </ul>
+  </li>
+  <li><b>Two pools.</b> GermanDPR ships three trap passages with every question, picked with BM25.
+    <ul>
+      <li>Under plain BM25, one of them outranks the right passage for 76% of the development questions.</li>
+      <li>Headline pool: each question is ranked without its own three traps. This was fixed before any comparison system was built.</li>
+      <li>Pool as shipped: reported beside the headline for every system.</li>
+    </ul>
+  </li>
+  <li><b>Fixed in advance, never tuned:</b> BM25 with its standard settings; the dense model <code>multilingual-e5-small</code> as published; rank fusion with its standard constant and no weights.</li>
+  <li><b>Statistics:</b>
+    <ul>
+      <li>Many questions share one gold passage, so intervals and tests resample passages, not questions.</li>
+      <li>95% bootstrap intervals; paired randomisation tests; Holm correction across the six tests.</li>
+    </ul>
+  </li>
+  <li><b>Everything runs on one 8 GB laptop.</b> No paid API. The LLM is a local Gemma model.</li>
+</ul>
+
+<h2>3. The systems and the test result</h2>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 476" width="860" height="476" role="img" aria-label="Recall at 10 of the ten tested systems on the 1,025 test questions">
+<style>
+  text { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1f2328; }
+  .title { font-size: 14px; font-weight: 600; }
+  .group { font-size: 12px; fill: #59636e; }
+  .label { font-size: 13px; }
+  .value { font-size: 13px; font-variant-numeric: tabular-nums; }
+  .tick { font-size: 11px; fill: #59636e; }
+  .grid { stroke: #d1d9e0; stroke-width: 1; }
+  .ci { stroke: #59636e; stroke-width: 2; stroke-linecap: round; }
+  .dot { fill: #1f2328; }
+  @media (prefers-color-scheme: dark) {
+    text { fill: #f0f6fc; }
+    .group, .tick { fill: #9198a1; }
+    .grid { stroke: #3d444d; }
+    .ci { stroke: #9198a1; }
+    .dot { fill: #f0f6fc; }
+  }
+</style>
+<text class="title" x="16" y="24">Recall@10 on the 1,025 held-out test questions, with 95% intervals</text>
+<line class="grid" x1="372.0" y1="46" x2="372.0" y2="436"/>
+<text class="tick" x="372.0" y="454" text-anchor="middle">60%</text>
+<line class="grid" x1="472.0" y1="46" x2="472.0" y2="436"/>
+<text class="tick" x="472.0" y="454" text-anchor="middle">70%</text>
+<line class="grid" x1="572.0" y1="46" x2="572.0" y2="436"/>
+<text class="tick" x="572.0" y="454" text-anchor="middle">80%</text>
+<line class="grid" x1="672.0" y1="46" x2="672.0" y2="436"/>
+<text class="tick" x="672.0" y="454" text-anchor="middle">90%</text>
+<line class="grid" x1="772.0" y1="46" x2="772.0" y2="436"/>
+<text class="tick" x="772.0" y="454" text-anchor="middle">100%</text>
+<text class="tick" x="16" y="454">The axis starts at 60%.</text>
+<text class="group" x="16" y="66">Keyword search only (BM25)</text>
+<text class="label" x="16" y="95.5">BM25 on plain words (baseline)</text>
+<line class="ci" x1="440.0" y1="91.0" x2="519.1" y2="91.0"/>
+<circle class="dot" cx="480.3" cy="91.0" r="5"/>
+<text class="value" x="844" y="95.5" text-anchor="end">70.8%</text>
+<text class="label" x="16" y="125.5">BM25 on stems</text>
+<line class="ci" x1="506.1" y1="121.0" x2="580.4" y2="121.0"/>
+<circle class="dot" cx="543.7" cy="121.0" r="5"/>
+<text class="value" x="844" y="125.5" text-anchor="end">77.2%</text>
+<text class="label" x="16" y="155.5">BM25 on stems + compound parts, whole word kept</text>
+<line class="ci" x1="541.4" y1="151.0" x2="611.6" y2="151.0"/>
+<circle class="dot" cx="576.9" cy="151.0" r="5"/>
+<text class="value" x="844" y="155.5" text-anchor="end">80.5%</text>
+<text class="label" x="16" y="185.5">BM25 on stems, compounds replaced by their parts</text>
+<line class="ci" x1="549.8" y1="181.0" x2="620.4" y2="181.0"/>
+<circle class="dot" cx="585.7" cy="181.0" r="5"/>
+<text class="value" x="844" y="185.5" text-anchor="end">81.4%</text>
+<text class="group" x="16" y="216">Dense model only</text>
+<text class="label" x="16" y="245.5">Dense model alone (multilingual-e5-small)</text>
+<line class="ci" x1="676.0" y1="241.0" x2="714.1" y2="241.0"/>
+<circle class="dot" cx="695.9" cy="241.0" r="5"/>
+<text class="value" x="844" y="245.5" text-anchor="end">92.4%</text>
+<text class="group" x="16" y="276">Both, fused</text>
+<text class="label" x="16" y="305.5">Hybrid: plain BM25 + dense</text>
+<line class="ci" x1="633.4" y1="301.0" x2="686.2" y2="301.0"/>
+<circle class="dot" cx="660.8" cy="301.0" r="5"/>
+<text class="value" x="844" y="305.5" text-anchor="end">88.9%</text>
+<text class="label" x="16" y="335.5">Hybrid: stemmed BM25 + dense</text>
+<line class="ci" x1="660.5" y1="331.0" x2="706.1" y2="331.0"/>
+<circle class="dot" cx="684.2" cy="331.0" r="5"/>
+<text class="value" x="844" y="335.5" text-anchor="end">91.2%</text>
+<text class="label" x="16" y="365.5">Hybrid: stems + parts (whole kept) + dense</text>
+<line class="ci" x1="671.5" y1="361.0" x2="712.7" y2="361.0"/>
+<circle class="dot" cx="693.0" cy="361.0" r="5"/>
+<text class="value" x="844" y="365.5" text-anchor="end">92.1%</text>
+<text class="label" x="16" y="395.5">Hybrid: stems + parts (replaced) + dense</text>
+<line class="ci" x1="673.7" y1="391.0" x2="716.0" y2="391.0"/>
+<circle class="dot" cx="695.9" cy="391.0" r="5"/>
+<text class="value" x="844" y="395.5" text-anchor="end">92.4%</text>
+<text class="label" x="16" y="425.5">Hybrid + LLM rewriting of unsure queries</text>
+<line class="ci" x1="683.0" y1="421.0" x2="722.8" y2="421.0"/>
+<circle class="dot" cx="703.7" cy="421.0" r="5"/>
+<text class="value" x="844" y="425.5" text-anchor="end">93.2%</text>
+</svg>
+
+<figcaption>Recall@10 on the 1,025 test questions, headline pool. The line through each dot is its 95% interval.</figcaption>
+<div class="scroll"><table><thead><tr><th>System</th><th class="num">R@1</th><th class="num">R@5</th><th class="num">R@10</th><th class="num">95% interval</th><th class="num">MRR@10</th><th class="num">R@10, pool as shipped</th></tr></thead><tbody><tr><td>BM25 on plain words (baseline)</td><td class="num">0.410</td><td class="num">0.631</td><td class="num"><b>70.8%</b></td><td class="num">[66.8%, 74.7%]</td><td class="num">0.502</td><td class="num">67.0%</td></tr><tr><td>BM25 on stems</td><td class="num">0.445</td><td class="num">0.685</td><td class="num"><b>77.2%</b></td><td class="num">[73.4%, 80.8%]</td><td class="num">0.548</td><td class="num">73.2%</td></tr><tr><td>BM25 on stems + compound parts, whole word kept</td><td class="num">0.466</td><td class="num">0.714</td><td class="num"><b>80.5%</b></td><td class="num">[76.9%, 84.0%]</td><td class="num">0.576</td><td class="num">78.0%</td></tr><tr><td>BM25 on stems, compounds replaced by their parts</td><td class="num">0.483</td><td class="num">0.732</td><td class="num"><b>81.4%</b></td><td class="num">[77.8%, 84.8%]</td><td class="num">0.590</td><td class="num">78.4%</td></tr><tr><td>Dense model alone (multilingual-e5-small)</td><td class="num">0.594</td><td class="num">0.862</td><td class="num"><b>92.4%</b></td><td class="num">[90.4%, 94.2%]</td><td class="num">0.709</td><td class="num">91.6%</td></tr><tr><td>Hybrid: plain BM25 + dense</td><td class="num">0.528</td><td class="num">0.811</td><td class="num"><b>88.9%</b></td><td class="num">[86.1%, 91.4%]</td><td class="num">0.652</td><td class="num">87.4%</td></tr><tr><td>Hybrid: stemmed BM25 + dense</td><td class="num">0.583</td><td class="num">0.839</td><td class="num"><b>91.2%</b></td><td class="num">[88.8%, 93.4%]</td><td class="num">0.692</td><td class="num">89.9%</td></tr><tr><td>Hybrid: stems + parts (whole kept) + dense</td><td class="num">0.588</td><td class="num">0.855</td><td class="num"><b>92.1%</b></td><td class="num">[90.0%, 94.1%]</td><td class="num">0.704</td><td class="num">90.8%</td></tr><tr><td>Hybrid: stems + parts (replaced) + dense</td><td class="num">0.604</td><td class="num">0.861</td><td class="num"><b>92.4%</b></td><td class="num">[90.2%, 94.4%]</td><td class="num">0.714</td><td class="num">90.1%</td></tr><tr><td>Hybrid + LLM rewriting of unsure queries</td><td class="num">0.606</td><td class="num">0.865</td><td class="num"><b>93.2%</b></td><td class="num">[91.1%, 95.1%]</td><td class="num">0.718</td><td class="num">90.7%</td></tr></tbody></table></div>
+</figure>
+<ul>
+  <li><b>Keyword search.</b> Stems lift plain BM25 from 70.8% to 77.2%; split compounds lift it further to 81.4%.</li>
+  <li><b>Dense model alone.</b> 92.4%, without any of this work.</li>
+  <li><b>Hybrids.</b> Fusing the dense model with <i>plain</i> BM25 gives 88.9%, which is worse than the dense model alone. Fusing it with the stemmed and split BM25 gives 92.4%.</li>
+  <li><b>LLM rewriting.</b> A local model adds search terms to the queries on which the two retrievers disagree: 93.2%.
+    <ul>
+      <li>The rule that picks these queries looks at rankings and scores only, never at the answer.</li>
+      <li>It sent 5.3% of the development questions and 6.5% of the test questions to the LLM (67 of 1,025; 83 under at least one of the two pools).</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>4. The six hypotheses</h2>
+<figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 334" role="img" aria-label="Predicted and measured difference in Recall at 10 for the six hypotheses">
+<text class="hy-small" x="16" y="16">Hypothesis</text>
+<text class="hy-small" x="330.0" y="16">Difference in Recall@10, in points. Grey band: the range predicted beforehand.</text>
+<line class="hy-grid" x1="330.0" y1="30" x2="330.0" y2="294"/>
+<text class="hy-tick" x="330.0" y="310" text-anchor="middle">-5</text>
+<line class="hy-zero" x1="407.5" y1="30" x2="407.5" y2="294"/>
+<text class="hy-tick" x="407.5" y="310" text-anchor="middle">+0</text>
+<line class="hy-grid" x1="485.0" y1="30" x2="485.0" y2="294"/>
+<text class="hy-tick" x="485.0" y="310" text-anchor="middle">+5</text>
+<line class="hy-grid" x1="562.5" y1="30" x2="562.5" y2="294"/>
+<text class="hy-tick" x="562.5" y="310" text-anchor="middle">+10</text>
+<line class="hy-grid" x1="640.0" y1="30" x2="640.0" y2="294"/>
+<text class="hy-tick" x="640.0" y="310" text-anchor="middle">+15</text>
+<text class="hy-id" x="16" y="49.0">H1</text>
+<text class="hy-q" x="52" y="49.0">Do stems help BM25?</text>
+<text class="hy-small" x="52" y="64.0">predicted: +1 to +3</text>
+<rect class="hy-band" x="423.0" y="41.0" width="31.0" height="22" rx="3"><title>predicted: +1 to +3 points</title></rect>
+<line class="hy-ci" x1="471.8" y1="52.0" x2="541.8" y2="52.0"/>
+<circle class="hy-dot supported" cx="505.8" cy="52.0" r="6"><title>H1: +6.3 points, 95% interval [+4.1, +8.7], predicted +1 to +3, supported</title></circle>
+<text class="hy-res" x="658.0" y="56.5">+6.3 · supported</text>
+<text class="hy-id" x="16" y="93.0">H2</text>
+<text class="hy-q" x="52" y="93.0">Does splitting compounds add more?</text>
+<text class="hy-small" x="52" y="108.0">predicted: 0 to +2</text>
+<rect class="hy-band" x="407.5" y="85.0" width="31.0" height="22" rx="3"><title>predicted: 0 to +2 points</title></rect>
+<line class="hy-ci" x1="440.1" y1="96.0" x2="506.4" y2="96.0"/>
+<circle class="hy-dot supported" cx="472.5" cy="96.0" r="6"><title>H2: +4.2 points, 95% interval [+2.1, +6.4], predicted 0 to +2, supported</title></circle>
+<text class="hy-res" x="658.0" y="100.5">+4.2 · supported</text>
+<text class="hy-id" x="16" y="137.0">H3</text>
+<text class="hy-q" x="52" y="137.0">Is the gain still there next to a dense model?</text>
+<text class="hy-small" x="52" y="152.0">predicted: 0 to +1 (shrinks)</text>
+<rect class="hy-band" x="407.5" y="129.0" width="15.5" height="22" rx="3"><title>predicted: 0 to +1 (shrinks) points</title></rect>
+<line class="hy-ci" x1="430.0" y1="140.0" x2="497.0" y2="140.0"/>
+<circle class="hy-dot supported" cx="461.9" cy="140.0" r="6"><title>H3: +3.5 points, 95% interval [+1.5, +5.8], predicted 0 to +1 (shrinks), supported</title></circle>
+<text class="hy-res" x="658.0" y="144.5">+3.5 · supported</text>
+<text class="hy-id" x="16" y="181.0">H4a</text>
+<text class="hy-q" x="52" y="181.0">Does the hybrid beat the dense model alone?</text>
+<text class="hy-small" x="52" y="196.0">predicted: a gain</text>
+<line class="hy-ci" x1="371.7" y1="184.0" x2="439.9" y2="184.0"/>
+<circle class="hy-dot" cx="407.5" cy="184.0" r="6"><title>H4a: +0.0 points, 95% interval [−2.3, +2.1], predicted a gain, not supported</title></circle>
+<text class="hy-res" x="658.0" y="188.5">+0.0 · not supported</text>
+<text class="hy-id" x="16" y="225.0">H4b</text>
+<text class="hy-q" x="52" y="225.0">Does the hybrid beat BM25 alone?</text>
+<text class="hy-small" x="52" y="240.0">predicted: a gain</text>
+<line class="hy-ci" x1="539.8" y1="228.0" x2="618.2" y2="228.0"/>
+<circle class="hy-dot supported" cx="578.4" cy="228.0" r="6"><title>H4b: +11.0 points, 95% interval [+8.5, +13.6], predicted a gain, supported</title></circle>
+<text class="hy-res" x="658.0" y="232.5">+11.0 · supported</text>
+<text class="hy-id" x="16" y="269.0">H5</text>
+<text class="hy-q" x="52" y="269.0">Does LLM query rewriting help?</text>
+<text class="hy-small" x="52" y="284.0">predicted: about 0</text>
+<line class="hy-ci" x1="409.1" y1="272.0" x2="431.1" y2="272.0"/>
+<circle class="hy-dot" cx="419.6" cy="272.0" r="6"><title>H5: +0.8 points, 95% interval [+0.1, +1.5], predicted about 0, not supported</title></circle>
+<text class="hy-res" x="658.0" y="276.5">+0.8 · not supported</text>
+</svg>
+<figcaption>Filled dot: supported (the difference is positive and its corrected p value is below 0.05). Hollow dot: not supported. H4a, H4b and H5 were predicted in words, not as a range.</figcaption>
+<div class="scroll"><table><thead><tr><th></th><th>Question</th><th>Predicted (points)</th><th class="num">Result [95% interval]</th><th class="num">Holm p</th><th class="num">Won / lost</th><th>Verdict</th><th>Prediction was</th><th>Pool as shipped</th></tr></thead><tbody><tr><td><b>H1</b></td><td>Do stems help BM25?</td><td>+1 to +3</td><td class="num"><b>+6.3</b> [+4.1, +8.7]</td><td class="num">< 0.001</td><td class="num">92 / 27</td><td><span class="yes">supported</span></td><td>larger than predicted</td><td>+6.1, <span class="yes">supported</span></td></tr><tr><td><b>H2</b></td><td>Does splitting compounds add more?</td><td>0 to +2</td><td class="num"><b>+4.2</b> [+2.1, +6.4]</td><td class="num">< 0.001</td><td class="num">68 / 25</td><td><span class="yes">supported</span></td><td>larger than predicted</td><td>+5.3, <span class="yes">supported</span></td></tr><tr><td><b>H3</b></td><td>Is the gain still there next to a dense model?</td><td>0 to +1 (shrinks)</td><td class="num"><b>+3.5</b> [+1.5, +5.8]</td><td class="num">0.005</td><td class="num">59 / 23</td><td><span class="yes">supported</span></td><td>larger than predicted</td><td>+2.7, <span class="no">not supported</span></td></tr><tr><td><b>H4a</b></td><td>Does the hybrid beat the dense model alone?</td><td>a gain</td><td class="num"><b>+0.0</b> [−2.3, +2.1]</td><td class="num">1.000</td><td class="num">45 / 45</td><td><span class="no">not supported</span></td><td>no gain found</td><td>−1.5, <span class="no">not supported</span></td></tr><tr><td><b>H4b</b></td><td>Does the hybrid beat BM25 alone?</td><td>a gain</td><td class="num"><b>+11.0</b> [+8.5, +13.6]</td><td class="num">< 0.001</td><td class="num">119 / 6</td><td><span class="yes">supported</span></td><td>as predicted</td><td>+11.7, <span class="yes">supported</span></td></tr><tr><td><b>H5</b></td><td>Does LLM query rewriting help?</td><td>about 0</td><td class="num"><b>+0.8</b> [+0.1, +1.5]</td><td class="num">0.106</td><td class="num">10 / 2</td><td><span class="no">not supported</span></td><td>as predicted</td><td>+0.6, <span class="no">not supported</span></td></tr></tbody></table></div>
+</figure>
+<ul>
+  <li><b>Supported: H1, H2, H3, H4b.</b>
+    <ul>
+      <li>Stems and splitting help BM25, and by more than predicted (+6.3 and +4.2 points).</li>
+      <li>The help survives inside the hybrid: +3.5 points. This was the main question.</li>
+    </ul>
+  </li>
+  <li><b>Not supported: H4a.</b> The hybrid does not beat the dense model alone: 45 questions won, 45 lost.</li>
+  <li><b>Not supported: H5.</b> LLM rewriting gains +0.8 points (10 questions won, 2 lost), which does not pass the corrected test.</li>
+  <li><b>A weaker second view.</b> With the pool as shipped, the gain inside the hybrid is +2.7 points and does not pass the corrected test (Holm p = 0.076).</li>
+</ul>
+<div class="note"><b>What an engineer could take from it, on this data:</b> use the dense model. If you must stay with keyword search, stem and split. If you fuse the two, do the linguistic work first, because fusing with plain BM25 makes the dense model worse.</div>
+
+<h2>5. The compound splitter by itself</h2>
+<ul>
+  <li><b>How it works.</b> It needs no dictionary. It counts the words of the passages it is going to index. A word may be cut into nouns it has seen, and the cut wins if its parts are, on average, more frequent than the whole word.
+    <ul>
+      <li>Linking elements are handled: <i>Bundes|verfassungs|gericht</i>.</li>
+      <li>A frequent fixed word such as <i>Bahnhof</i> stays whole.</li>
+    </ul>
+  </li>
+  <li><b>How it was scored.</b> 100 capitalised words from development questions, labelled by hand by the author on a page that shows nothing a splitter did. HanTa, an open morphology tool, is scored beside it.</li>
+</ul>
+<div class="scroll"><table><thead><tr><th>Labels</th><th>Splitter</th><th class="num">Precision</th><th class="num">Recall</th><th class="num">F1</th><th class="num">Cut exactly right</th><th class="num">Missed or cut wrongly</th><th class="num">Cut a word that should stay whole</th></tr></thead><tbody><tr><td>first pass</td><td>Own splitter</td><td class="num">0.82</td><td class="num">0.65</td><td class="num"><b>0.73</b></td><td class="num">36</td><td class="num">19</td><td class="num">5</td></tr><tr><td>first pass</td><td>HanTa</td><td class="num">0.92</td><td class="num">0.65</td><td class="num"><b>0.77</b></td><td class="num">36</td><td class="num">19</td><td class="num">1</td></tr><tr><td>revised</td><td>Own splitter</td><td class="num">0.84</td><td class="num">0.77</td><td class="num"><b>0.80</b></td><td class="num">37</td><td class="num">11</td><td class="num">5</td></tr><tr><td>revised</td><td>HanTa</td><td class="num">0.95</td><td class="num">0.77</td><td class="num"><b>0.85</b></td><td class="num">37</td><td class="num">11</td><td class="num">1</td></tr><tr><td>AI labels</td><td>Own splitter</td><td class="num">0.89</td><td class="num">0.83</td><td class="num"><b>0.86</b></td><td class="num">39</td><td class="num">8</td><td class="num">4</td></tr><tr><td>AI labels</td><td>HanTa</td><td class="num">0.95</td><td class="num">0.79</td><td class="num"><b>0.86</b></td><td class="num">37</td><td class="num">10</td><td class="num">0</td></tr></tbody></table></div>
+<ul>
+  <li><b>These labels were revised once, after the scores were known.</b>
+    <ul>
+      <li>The first pass also had cuts at a prefix, a suffix or an ending in 8 words. The labelling page's own instruction counts a derived word as "not a compound".</li>
+      <li>They were removed by one rule: a cut stays only where a word meets a word.</li>
+      <li>Because the change came after the scores, the table gives the first pass too. The first pass is kept unchanged in <code>labels/compounds_labels_first_pass.csv</code>.</li>
+    </ul>
+  </li>
+  <li><b>Reading the scores.</b>
+    <ul>
+      <li>On 100 words the two splitters cannot be ranked.</li>
+      <li>They fail differently. HanTa cut 1 word that should stay whole; the study's splitter cut 5, all of them names (<i>Hopera</i>, <i>Tommie</i>, <i>Marshall</i>, <i>Soundtrack</i>, <i>Griechenland</i>).</li>
+      <li>An earlier labelling by an AI agrees with the revised labels on the cuts of 94 of 100 words (86 with the first pass).</li>
+    </ul>
+  </li>
+  <li><b>Speed.</b> Cutting the 216,350 distinct capitalised words of the passages took the study's splitter 31 seconds, including its word count, and HanTa 149 seconds (one run each).</li>
+</ul>
+<h3>The 8 revised labels</h3>
+<div class="scroll"><table><thead><tr><th>Word</th><th>First pass</th><th>Revised</th><th>Type now</th></tr></thead><tbody><tr><td>Wissenschaften</td><td>Wissen|schaften</td><td>Wissenschaften</td><td>not a compound</td></tr><tr><td>Preußische</td><td>Preußisch|e</td><td>Preußische</td><td>name</td></tr><tr><td>Judentum</td><td>Juden|tum</td><td>Judentum</td><td>not a compound</td></tr><tr><td>Verschiebung</td><td>Ver|schiebung</td><td>Verschiebung</td><td>not a compound</td></tr><tr><td>Infrarot</td><td>Infra|rot</td><td>Infrarot</td><td>not a compound</td></tr><tr><td>Judentums</td><td>Juden|tum|s</td><td>Judentums</td><td>not a compound</td></tr><tr><td>Holzfestigkeit</td><td>Holz|fest|igkeit</td><td>Holz|festigkeit</td><td>lexicalised compound</td></tr><tr><td>Zusammenkunft</td><td>Zusammen|kunft</td><td>Zusammenkunft</td><td>not a compound</td></tr></tbody></table></div>
+
+<h2>6. What the errors show</h2>
+<div class="scroll"><table><thead><tr><th>What happens</th><th class="num">Questions (of 1,000)</th><th>What the counts show</th></tr></thead><tbody><tr><td>Splitting rescues a question that plain words and stems both missed</td><td class="num">56</td><td>In 53, the cut gives the question and its passage a search term they did not share before.</td></tr><tr><td>Splitting loses a question that stems had found</td><td class="num">28</td><td>In 16, the question contains a word that gets cut; several of those words are names. In the other 12, nothing in the question is cut.</td></tr><tr><td>Inside the hybrid, the linguistic steps rescue a question</td><td class="num">59</td><td>In 50, plain BM25 does not have the right passage in its first 100.</td></tr><tr><td>LLM rewriting rescues a question</td><td class="num">12</td><td>Some are real repairs (a corrected spelling), some are luck.</td></tr><tr><td>Missed by everything</td><td class="num">29</td><td>In 7, another returned passage contains the answer, so the label may be incomplete. The other 22 are real misses.</td></tr></tbody></table></div>
+<ul>
+  <li><b>A win.</b> "Wie hoch ist die Einwohnerdichte in Melbourne?": rank 43 with plain words, rank 50 with stems, rank 1 with split compounds.</li>
+  <li><b>A loss.</b> "Welches Unternehmen betreibt die Straßenbahn in Straßburg?": rank 3 with stems, rank 12 once <i>Straßburg</i> is cut into <i>Straße</i> and <i>Burg</i>.</li>
+  <li><b>Another loss.</b> "Wer ist Gabe Newell?": rank 1 with stems, rank 12 once <i>Newell</i> is cut into <i>new</i> and <i>ell</i>.</li>
+  <li><b>Why the linguistic steps still matter in the hybrid.</b> Rank fusion rewards passages that both lists contain. If plain BM25 misses the right passage, that passage has only its dense rank, and passages found by both lists overtake it.</li>
+</ul>
+
+<h2>7. What was checked</h2>
+<ul>
+  <li><b>The test run.</b> The results come from one search of the test questions. The unchanged systems were later run on them twice more, only to check that the results repeat; both repeats gave identical reports.</li>
+  <li><b>A clean copy.</b> On 12 November 2026 the whole study was repeated in a copy with a new environment, a fresh download and freshly computed embeddings. All 33 result files were identical to the saved ones. This was before the hand labels were added; the label scores are not part of that check.</li>
+  <li><b>The write-up.</b>
+    <ul>
+      <li>Tables and charts are generated from the result files.</li>
+      <li>An automated test looks up every rank, count and example that the README quotes.</li>
+      <li>An earlier draft contained statements the data did not back. They were replaced, and each correction is dated in <code>HYPOTHESES.md</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>8. Limits</h2>
+<ul>
+  <li><b>One dataset.</b> The questions were written by people who had the passage in front of them. Real search queries are shorter and messier.</li>
+  <li><b>A small pool.</b> 26,372 passages. Among millions, the balance between keyword search and a dense model may differ.</li>
+  <li><b>One gold passage per question.</b> Other passages that also answer it count as misses.</li>
+  <li><b>The choice of pool matters.</b> The main result passes the corrected test in the headline pool only.</li>
+  <li><b>One dense model, one LLM, one prompt, all small.</b> A larger LLM or a weighted fusion could change the two results that failed.</li>
+  <li><b>The compound labels are one person's,</b> on 100 words, and were revised once after the scores were known.</li>
+  <li><b>The hypotheses were fixed in a local file,</b> not in a public registry. Its dates rest on file timestamps.</li>
+</ul>
+
+<h2>9. The headline number</h2>
+<div class="note">+21.6 points Recall@10 over plain BM25 on 1,025 German questions (92.4% vs. 70.8% on GermanDPR test, headline pool; linguistic preprocessing adds +3.5 points inside the RRF hybrid).</div>
+<ul>
+  <li>The protocol fixed this wording before the test run, for the system with the best development score. That system is the dense model alone (94.9% on the development set).</li>
+  <li>For the full pipeline the gain is +22.3 points. Its last 0.8 points come from the LLM step, whose hypothesis was not supported.</li>
+</ul>
+
+
+</body>
+</html>

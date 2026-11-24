@@ -1,0 +1,1577 @@
+{
+ "n_labelled": 100,
+ "types": {
+  "compound": 23,
+  "lexicalised compound": 24,
+  "name": 17,
+  "not a compound": 36
+ },
+ "splitters": {
+  "lexicon": {
+   "all": {
+    "n": 100,
+    "correct_split": 37,
+    "wrong_cuts": 2,
+    "correct_whole": 47,
+    "missed": 9,
+    "over_split": 5,
+    "accuracy": 0.84,
+    "precision": 0.8409090909090909,
+    "recall": 0.7708333333333334,
+    "f1": 0.8043478260869567,
+    "cut_precision": 0.8260869565217391,
+    "cut_recall": 0.7755102040816326
+   },
+   "compound": {
+    "n": 23,
+    "correct_split": 17,
+    "wrong_cuts": 1,
+    "correct_whole": 0,
+    "missed": 5,
+    "over_split": 0,
+    "accuracy": 0.7391304347826086,
+    "precision": 0.9444444444444444,
+    "recall": 0.7391304347826086,
+    "f1": 0.8292682926829269,
+    "cut_precision": 0.9473684210526315,
+    "cut_recall": 0.782608695652174
+   },
+   "lexicalised compound": {
+    "n": 24,
+    "correct_split": 19,
+    "wrong_cuts": 1,
+    "correct_whole": 0,
+    "missed": 4,
+    "over_split": 0,
+    "accuracy": 0.7916666666666666,
+    "precision": 0.95,
+    "recall": 0.7916666666666666,
+    "f1": 0.8636363636363635,
+    "cut_precision": 0.9047619047619048,
+    "cut_recall": 0.76
+   },
+   "name": {
+    "n": 17,
+    "correct_split": 1,
+    "wrong_cuts": 0,
+    "correct_whole": 11,
+    "missed": 0,
+    "over_split": 5,
+    "accuracy": 0.7058823529411765,
+    "precision": 0.16666666666666666,
+    "recall": 1.0,
+    "f1": 0.2857142857142857,
+    "cut_precision": 0.16666666666666666,
+    "cut_recall": 1.0
+   },
+   "not a compound": {
+    "n": 36,
+    "correct_split": 0,
+    "wrong_cuts": 0,
+    "correct_whole": 36,
+    "missed": 0,
+    "over_split": 0,
+    "accuracy": 1.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "cut_precision": 0.0,
+    "cut_recall": 0.0
+   },
+   "stratum: long": {
+    "n": 50,
+    "correct_split": 29,
+    "wrong_cuts": 2,
+    "correct_whole": 12,
+    "missed": 6,
+    "over_split": 1,
+    "accuracy": 0.82,
+    "precision": 0.90625,
+    "recall": 0.7837837837837838,
+    "f1": 0.8405797101449275,
+    "cut_precision": 0.8823529411764706,
+    "cut_recall": 0.7894736842105263
+   },
+   "stratum: short": {
+    "n": 50,
+    "correct_split": 8,
+    "wrong_cuts": 0,
+    "correct_whole": 35,
+    "missed": 3,
+    "over_split": 4,
+    "accuracy": 0.86,
+    "precision": 0.6666666666666666,
+    "recall": 0.7272727272727273,
+    "f1": 0.6956521739130435,
+    "cut_precision": 0.6666666666666666,
+    "cut_recall": 0.7272727272727273
+   },
+   "per_word": {
+    "Klimax": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Entscheidung": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Platten": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Arbeitskräfte": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "lexicalised compound"
+    },
+    "Elektrolytkondensatoren": {
+     "gold": [
+      10
+     ],
+     "predicted": [
+      10
+     ],
+     "type": "compound"
+    },
+    "Hopera": {
+     "gold": [],
+     "predicted": [
+      3
+     ],
+     "type": "name"
+    },
+    "Tagesrhythmus": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Künstler": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Fantasy": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Tadschikistan": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Wissenschaften": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Pflanzenarten": {
+     "gold": [
+      8
+     ],
+     "predicted": [
+      8
+     ],
+     "type": "lexicalised compound"
+    },
+    "Reform": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Gruppen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Mittelalters": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "lexicalised compound"
+    },
+    "Wirtschaftszweige": {
+     "gold": [
+      11
+     ],
+     "predicted": [
+      11
+     ],
+     "type": "lexicalised compound"
+    },
+    "Präparat": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Einwohnerdichte": {
+     "gold": [
+      9
+     ],
+     "predicted": [
+      9
+     ],
+     "type": "compound"
+    },
+    "Luftverschmutzung": {
+     "gold": [
+      4
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Geruchsspuren": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "lexicalised compound"
+    },
+    "Hauptgebäude": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Rhythmik": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Büchern": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Zinkherstellung": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Geologie": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Ballett": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Geliebte": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Gattung": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Verluste": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Bauernjahr": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Kolonialkonflikt": {
+     "gold": [
+      8
+     ],
+     "predicted": [
+      8
+     ],
+     "type": "lexicalised compound"
+    },
+    "Ringelwürmern": {
+     "gold": [
+      6
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Insektensterben": {
+     "gold": [
+      8
+     ],
+     "predicted": [
+      9,
+      12
+     ],
+     "type": "lexicalised compound"
+    },
+    "Pennsylvania": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Punkte": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Kondensatoren": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Preußische": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Zeremonie": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Regierungskoaliton": {
+     "gold": [
+      10
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Bauhaus": {
+     "gold": [
+      3
+     ],
+     "predicted": [
+      3
+     ],
+     "type": "name"
+    },
+    "Erkrankungen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Universitäten": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Massenauswanderung": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Lancashire": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Frühmenschen": {
+     "gold": [
+      4
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Tommie": {
+     "gold": [],
+     "predicted": [
+      3
+     ],
+     "type": "name"
+    },
+    "Tageszeit": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "lexicalised compound"
+    },
+    "Wasserbüffel": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "lexicalised compound"
+    },
+    "Kirche": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Familien": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Tristan": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Schriften": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Marshall": {
+     "gold": [],
+     "predicted": [
+      5
+     ],
+     "type": "name"
+    },
+    "Studienrichtungen": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "lexicalised compound"
+    },
+    "Pockenepidemie": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Haustiere": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Judentum": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Siebenjährigen": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Enklaven": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Atomspaltung": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Kühnen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Mitgliedern": {
+     "gold": [
+      3
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    },
+    "Symptome": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Lhasas": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Kunstgalerie": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Justizminister": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Internationalen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Strategie": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Freimauergrade": {
+     "gold": [
+      4,
+      9
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    },
+    "Stellenwert": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "compound"
+    },
+    "Verschiebung": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Holzgewinnung": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Tschechische": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Infrarot": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Vogelzüge": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Stadtstaat": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "lexicalised compound"
+    },
+    "Folgen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Charlotte": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Bluessängerin": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Energieeinheiten": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "compound"
+    },
+    "Uferpromenade": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "compound"
+    },
+    "Judentums": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Holzfestigkeit": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Frauenbewegung": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "lexicalised compound"
+    },
+    "Sandstein": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Heizlampen": {
+     "gold": [
+      4
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Bevölkerungsgruppe": {
+     "gold": [
+      12
+     ],
+     "predicted": [
+      12
+     ],
+     "type": "compound"
+    },
+    "Soundtrack": {
+     "gold": [],
+     "predicted": [
+      5
+     ],
+     "type": "name"
+    },
+    "Vorschläge": {
+     "gold": [
+      3
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    },
+    "Zusammenkunft": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Wirtschaftskrise": {
+     "gold": [
+      11
+     ],
+     "predicted": [
+      11
+     ],
+     "type": "compound"
+    },
+    "Religionen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Eisvertiefungen": {
+     "gold": [
+      3
+     ],
+     "predicted": [
+      3
+     ],
+     "type": "lexicalised compound"
+    },
+    "Religionshäuser": {
+     "gold": [
+      9
+     ],
+     "predicted": [
+      9
+     ],
+     "type": "lexicalised compound"
+    },
+    "Waffenstillstand": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6,
+      11
+     ],
+     "type": "compound"
+    },
+    "Institutionen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Ablösung": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Griechenland": {
+     "gold": [],
+     "predicted": [
+      8
+     ],
+     "type": "name"
+    },
+    "Florida": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Prägeperiode": {
+     "gold": [
+      5
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    }
+   }
+  },
+  "hanta": {
+   "all": {
+    "n": 100,
+    "correct_split": 37,
+    "wrong_cuts": 1,
+    "correct_whole": 51,
+    "missed": 10,
+    "over_split": 1,
+    "accuracy": 0.88,
+    "precision": 0.9487179487179487,
+    "recall": 0.7708333333333334,
+    "f1": 0.8505747126436781,
+    "cut_precision": 0.9743589743589743,
+    "cut_recall": 0.7755102040816326
+   },
+   "compound": {
+    "n": 23,
+    "correct_split": 18,
+    "wrong_cuts": 0,
+    "correct_whole": 0,
+    "missed": 5,
+    "over_split": 0,
+    "accuracy": 0.782608695652174,
+    "precision": 1.0,
+    "recall": 0.782608695652174,
+    "f1": 0.878048780487805,
+    "cut_precision": 1.0,
+    "cut_recall": 0.782608695652174
+   },
+   "lexicalised compound": {
+    "n": 24,
+    "correct_split": 18,
+    "wrong_cuts": 1,
+    "correct_whole": 0,
+    "missed": 5,
+    "over_split": 0,
+    "accuracy": 0.75,
+    "precision": 0.9473684210526315,
+    "recall": 0.75,
+    "f1": 0.8372093023255814,
+    "cut_precision": 1.0,
+    "cut_recall": 0.76
+   },
+   "name": {
+    "n": 17,
+    "correct_split": 1,
+    "wrong_cuts": 0,
+    "correct_whole": 15,
+    "missed": 0,
+    "over_split": 1,
+    "accuracy": 0.9411764705882353,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.6666666666666666,
+    "cut_precision": 0.5,
+    "cut_recall": 1.0
+   },
+   "not a compound": {
+    "n": 36,
+    "correct_split": 0,
+    "wrong_cuts": 0,
+    "correct_whole": 36,
+    "missed": 0,
+    "over_split": 0,
+    "accuracy": 1.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "cut_precision": 0.0,
+    "cut_recall": 0.0
+   },
+   "stratum: long": {
+    "n": 50,
+    "correct_split": 28,
+    "wrong_cuts": 1,
+    "correct_whole": 13,
+    "missed": 8,
+    "over_split": 0,
+    "accuracy": 0.82,
+    "precision": 0.9655172413793104,
+    "recall": 0.7567567567567568,
+    "f1": 0.8484848484848485,
+    "cut_precision": 1.0,
+    "cut_recall": 0.7631578947368421
+   },
+   "stratum: short": {
+    "n": 50,
+    "correct_split": 9,
+    "wrong_cuts": 0,
+    "correct_whole": 38,
+    "missed": 2,
+    "over_split": 1,
+    "accuracy": 0.94,
+    "precision": 0.9,
+    "recall": 0.8181818181818182,
+    "f1": 0.8571428571428572,
+    "cut_precision": 0.9,
+    "cut_recall": 0.8181818181818182
+   },
+   "per_word": {
+    "Klimax": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Entscheidung": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Platten": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Arbeitskräfte": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "lexicalised compound"
+    },
+    "Elektrolytkondensatoren": {
+     "gold": [
+      10
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Hopera": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Tagesrhythmus": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Künstler": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Fantasy": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Tadschikistan": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Wissenschaften": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Pflanzenarten": {
+     "gold": [
+      8
+     ],
+     "predicted": [
+      8
+     ],
+     "type": "lexicalised compound"
+    },
+    "Reform": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Gruppen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Mittelalters": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "lexicalised compound"
+    },
+    "Wirtschaftszweige": {
+     "gold": [
+      11
+     ],
+     "predicted": [
+      11
+     ],
+     "type": "lexicalised compound"
+    },
+    "Präparat": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Einwohnerdichte": {
+     "gold": [
+      9
+     ],
+     "predicted": [
+      9
+     ],
+     "type": "compound"
+    },
+    "Luftverschmutzung": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "compound"
+    },
+    "Geruchsspuren": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "lexicalised compound"
+    },
+    "Hauptgebäude": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Rhythmik": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Büchern": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Zinkherstellung": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Geologie": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Ballett": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Geliebte": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Gattung": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Verluste": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Bauernjahr": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Kolonialkonflikt": {
+     "gold": [
+      8
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    },
+    "Ringelwürmern": {
+     "gold": [
+      6
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Insektensterben": {
+     "gold": [
+      8
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    },
+    "Pennsylvania": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Punkte": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Kondensatoren": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Preußische": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Zeremonie": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Regierungskoaliton": {
+     "gold": [
+      10
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Bauhaus": {
+     "gold": [
+      3
+     ],
+     "predicted": [
+      3
+     ],
+     "type": "name"
+    },
+    "Erkrankungen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Universitäten": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Massenauswanderung": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Lancashire": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Frühmenschen": {
+     "gold": [
+      4
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Tommie": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Tageszeit": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "lexicalised compound"
+    },
+    "Wasserbüffel": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "lexicalised compound"
+    },
+    "Kirche": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Familien": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Tristan": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Schriften": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Marshall": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Studienrichtungen": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "lexicalised compound"
+    },
+    "Pockenepidemie": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Haustiere": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Judentum": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Siebenjährigen": {
+     "gold": [
+      6
+     ],
+     "predicted": [],
+     "type": "compound"
+    },
+    "Enklaven": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Atomspaltung": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Kühnen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Mitgliedern": {
+     "gold": [
+      3
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    },
+    "Symptome": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Lhasas": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Kunstgalerie": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Justizminister": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Internationalen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Strategie": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Freimauergrade": {
+     "gold": [
+      4,
+      9
+     ],
+     "predicted": [
+      9
+     ],
+     "type": "lexicalised compound"
+    },
+    "Stellenwert": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "compound"
+    },
+    "Verschiebung": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Holzgewinnung": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Tschechische": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Infrarot": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Vogelzüge": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Stadtstaat": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "lexicalised compound"
+    },
+    "Folgen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Charlotte": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Bluessängerin": {
+     "gold": [
+      5
+     ],
+     "predicted": [
+      5
+     ],
+     "type": "compound"
+    },
+    "Energieeinheiten": {
+     "gold": [
+      7
+     ],
+     "predicted": [
+      7
+     ],
+     "type": "compound"
+    },
+    "Uferpromenade": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "compound"
+    },
+    "Judentums": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Holzfestigkeit": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Frauenbewegung": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "lexicalised compound"
+    },
+    "Sandstein": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "lexicalised compound"
+    },
+    "Heizlampen": {
+     "gold": [
+      4
+     ],
+     "predicted": [
+      4
+     ],
+     "type": "compound"
+    },
+    "Bevölkerungsgruppe": {
+     "gold": [
+      12
+     ],
+     "predicted": [
+      12
+     ],
+     "type": "compound"
+    },
+    "Soundtrack": {
+     "gold": [],
+     "predicted": [
+      5
+     ],
+     "type": "name"
+    },
+    "Vorschläge": {
+     "gold": [
+      3
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    },
+    "Zusammenkunft": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Wirtschaftskrise": {
+     "gold": [
+      11
+     ],
+     "predicted": [
+      11
+     ],
+     "type": "compound"
+    },
+    "Religionen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Eisvertiefungen": {
+     "gold": [
+      3
+     ],
+     "predicted": [
+      3
+     ],
+     "type": "lexicalised compound"
+    },
+    "Religionshäuser": {
+     "gold": [
+      9
+     ],
+     "predicted": [
+      9
+     ],
+     "type": "lexicalised compound"
+    },
+    "Waffenstillstand": {
+     "gold": [
+      6
+     ],
+     "predicted": [
+      6
+     ],
+     "type": "compound"
+    },
+    "Institutionen": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Ablösung": {
+     "gold": [],
+     "predicted": [],
+     "type": "not a compound"
+    },
+    "Griechenland": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Florida": {
+     "gold": [],
+     "predicted": [],
+     "type": "name"
+    },
+    "Prägeperiode": {
+     "gold": [
+      5
+     ],
+     "predicted": [],
+     "type": "lexicalised compound"
+    }
+   }
+  }
+ }
+}

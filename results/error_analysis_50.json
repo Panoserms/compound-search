@@ -1,0 +1,2015 @@
+{
+ "split": "dev",
+ "pool": "own_hard_negatives_dropped",
+ "seed": 13,
+ "total_sampled": 50,
+ "categories": {
+  "splitting_wins": {
+   "description": "Stemming + compound splitting rescues BM25 (bm25_parts_stem <= 10, bm25_plain > 10 & bm25_stem > 10)",
+   "total_matching_in_dev": 56,
+   "sampled": 15,
+   "quota": 15
+  },
+  "splitting_losses": {
+   "description": "Compound splitting regression vs. stemming alone (bm25_stem <= 10, bm25_parts_stem > 10)",
+   "total_matching_in_dev": 28,
+   "sampled": 10,
+   "quota": 10
+  },
+  "hybrid_preprocessing_wins_h3": {
+   "description": "H3 mechanism: preprocessed hybrid rescues plain hybrid (hybrid_parts_stem_dense <= 10, hybrid_plain_dense > 10)",
+   "total_matching_in_dev": 59,
+   "sampled": 10,
+   "quota": 10
+  },
+  "llm_rewrite_wins_h5": {
+   "description": "H5 mechanism: Gemma-4 query expansion rescues hybrid (hybrid_parts_stem_dense_rewrite <= 10, hybrid_parts_stem_dense > 10)",
+   "total_matching_in_dev": 12,
+   "sampled": 10,
+   "quota": 10
+  },
+  "residual_hard_failures": {
+   "description": "Hard residual failures (both hybrid_parts_stem_dense_rewrite > 10 and dense > 10)",
+   "total_matching_in_dev": 29,
+   "sampled": 5,
+   "quota": 5
+  }
+ },
+ "facts_over_all_matching_queries": {
+  "splitting_wins": {
+   "n": 56,
+   "question_has_cut_word": 39,
+   "gains_shared_term": 53,
+   "loses_shared_term": 12,
+   "plain_bm25_outside_top100": 18,
+   "best_lexical_ranks_higher_than_plain": 56,
+   "dense_in_top10": 55
+  },
+  "splitting_losses": {
+   "n": 28,
+   "question_has_cut_word": 16,
+   "gains_shared_term": 12,
+   "loses_shared_term": 12,
+   "plain_bm25_outside_top100": 4,
+   "best_lexical_ranks_higher_than_plain": 7,
+   "dense_in_top10": 23
+  },
+  "hybrid_preprocessing_wins_h3": {
+   "n": 59,
+   "question_has_cut_word": 27,
+   "gains_shared_term": 37,
+   "loses_shared_term": 16,
+   "plain_bm25_outside_top100": 50,
+   "best_lexical_ranks_higher_than_plain": 59,
+   "dense_in_top10": 56
+  },
+  "llm_rewrite_wins_h5": {
+   "n": 12,
+   "question_has_cut_word": 2,
+   "gains_shared_term": 3,
+   "loses_shared_term": 2,
+   "plain_bm25_outside_top100": 8,
+   "best_lexical_ranks_higher_than_plain": 3,
+   "dense_in_top10": 10
+  },
+  "residual_hard_failures": {
+   "n": 29,
+   "question_has_cut_word": 11,
+   "gains_shared_term": 11,
+   "loses_shared_term": 9,
+   "plain_bm25_outside_top100": 8,
+   "best_lexical_ranks_higher_than_plain": 10,
+   "dense_in_top10": 0
+  }
+ },
+ "splitting_losses_cut_words": [
+  "arbeitslosenrate",
+  "beweismaterial",
+  "beyonce",
+  "deutschland",
+  "estlands",
+  "fußballclub",
+  "jahreszeiten",
+  "krimkrieg",
+  "newell",
+  "ostpreußen",
+  "seidenstraße",
+  "straßburg",
+  "straßenbahn",
+  "verifikationsprozess",
+  "vogelart",
+  "weltkrieg",
+  "weltreiches",
+  "ökosystem"
+ ],
+ "queries": [
+  {
+   "category": "splitting_wins",
+   "qid": "train-00445",
+   "question": "Welche Tierarten haben den besten Gesichtssinn? ",
+   "answers": [
+    "beispielsweise die Katzen und die Primaten"
+   ],
+   "gold_passage_id": "243cddb735c49a59",
+   "gold_title": "Säugetiere",
+   "gold_snippet": "=== Sinneswahrnehmung === Der Geruchssinn spielt eine bedeutende Rolle in der Lebensweise der Säugetiere, unter anderem bei der Nahrungssuche und bei der Fortpflanzung, wo Pheromone die Paarungsbereitschaft signalisieren. Auch für das Territorialverhalten ist …",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 18,
+    "bm25_parts_stem": 1,
+    "dense": 1,
+    "hybrid_plain_dense": 10,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "tierarten",
+     "parts": [
+      "tier",
+      "arten"
+     ],
+     "stems": [
+      "tier",
+      "art"
+     ]
+    },
+    {
+     "word": "gesichtssinn",
+     "parts": [
+      "gesicht",
+      "sinn"
+     ],
+     "stems": [
+      "gesicht",
+      "sinn"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "den",
+    "gesichtssinn",
+    "hab"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "art",
+    "gesicht",
+    "sinn",
+    "tier"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-00668",
+   "question": "Wie hoch ist die Einwohnerdichte in Melbourne?",
+   "answers": [
+    "1978 Einwohner je Quadratkilometer"
+   ],
+   "gold_passage_id": "b9522633b2ebf5c3",
+   "gold_title": "Melbourne",
+   "gold_snippet": "== Einwohnerentwicklung == Die Einwohnerzahl von Melbourne hat sich seit Ende der 1950er Jahre auf 3,4 Millionen im Jahr 2006 verdoppelt. Die Bevölkerungsdichte beträgt 1978 Einwohner je Quadratkilometer. In Berlin sind es zum Vergleich 3800. In den ländlichen…",
+   "ranks": {
+    "bm25_plain": 43,
+    "bm25_stem": 50,
+    "bm25_parts_stem": 1,
+    "dense": 1,
+    "hybrid_plain_dense": 10,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "einwohnerdichte",
+     "parts": [
+      "einwohner",
+      "dichte"
+     ],
+     "stems": [
+      "einwohn",
+      "dicht"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "die",
+    "in",
+    "melbourn"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "dicht",
+    "einwohn"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-01625",
+   "question": "Warum konnte in Ostpreußen mit Wasser kaum Energie erzeugt werden? ",
+   "answers": [
+    "Das geringe Gefälle der Tieflandflüsse"
+   ],
+   "gold_passage_id": "36287361ef326656",
+   "gold_title": "Ostpreußen",
+   "gold_snippet": "=== Industrie === Der Bernstein zählte zu den wenigen Bodenschätzen Ostpreußens, gab aber nur einigen tausend Menschen Arbeit. Er wurde im Tagebau bei Palmnicken gewonnen und in der Manufaktur in Königsberg verarbeitet. Das Fehlen von Steinkohle als Energieträ…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 64,
+    "bm25_parts_stem": 1,
+    "dense": 1,
+    "hybrid_plain_dense": 11,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "ostpreußen",
+     "parts": [
+      "ost",
+      "preußen"
+     ],
+     "stems": [
+      "ost",
+      "preuss"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "in",
+    "konnt",
+    "ostpreuss",
+    "werd"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "energi",
+    "ost",
+    "preuss",
+    "wass"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-02285",
+   "question": "Wie hoch ist das höchste Gebäude in Estland?",
+   "answers": [
+    "314 Meter"
+   ],
+   "gold_passage_id": "4c1046695cb4097c",
+   "gold_title": "Estland",
+   "gold_snippet": "=== Architektur === Die estnischen Städte werden immer noch von den Holzhäusern geprägt, auch wenn die sowjetischen Plattenbauten dazwischen ragen. Heutzutage wird viel mit Schiefer gebaut. Das höchste Bauwerk Estlands ist der Fernsehturm in Tallinn (314 Meter…",
+   "ranks": {
+    "bm25_plain": 12,
+    "bm25_stem": 12,
+    "bm25_parts_stem": 7,
+    "dense": 1,
+    "hybrid_plain_dense": 1,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "estland",
+     "parts": [
+      "est",
+      "land"
+     ],
+     "stems": [
+      "est",
+      "land"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "das",
+    "estland",
+    "hoch",
+    "in",
+    "ist"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "est",
+    "land"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-02441",
+   "question": "Wer macht Vorschläge für Gesetze in Mali?",
+   "answers": [
+    "Der Ministerrat"
+   ],
+   "gold_passage_id": "6fbb143f2639e494",
+   "gold_title": "Mali",
+   "gold_snippet": "=== Politisches System === Das politische Leben Malis basiert auf der Verfassung. Sie wurde 1992 durch eine Volksabstimmung angenommen. Das republikanische Regierungssystem ist an dasjenige Frankreichs angelehnt und als semipräsidentiell zu bezeichnen. Es sieh…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": 3,
+    "dense": 3,
+    "hybrid_plain_dense": 38,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "fur",
+    "in",
+    "macht",
+    "mali"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "gesetz",
+    "vorschlag"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-03502",
+   "question": "Wie viele Einwohner Irans leben im Armut?",
+   "answers": [
+    "zwischen 44,5 und 55 % der städtischen Bevölkerung"
+   ],
+   "gold_passage_id": "8013b26b4560c07f",
+   "gold_title": "Iran",
+   "gold_snippet": "== Sozialsystem == In seiner Schrift ''Der islamische Staat'' formulierte Ruhollah Chomeini die Verbesserung der Lebensumstände der armen Bevölkerung und die Beseitigung sozialer Ungleichheit als Ziele einer islamischen Gesellschaftsordnung:  93 % der iranisch…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 35,
+    "bm25_parts_stem": 5,
+    "dense": 2,
+    "hybrid_plain_dense": 16,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "armut",
+    "im",
+    "iran"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "leb"
+   ],
+   "llm_expansion": "Armut Iran Einwohner Armutsquote Iran Bevölkerung Armutsrate"
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-03951",
+   "question": "Nach wem ist die Musikhochschule in Weimar benannt?",
+   "answers": [
+    "Franz Liszt"
+   ],
+   "gold_passage_id": "63ac9e083c694fa4",
+   "gold_title": "Thüringen",
+   "gold_snippet": "=== Hochschulen === Einzige Volluniversität ist die 1558 gegründete Friedrich-Schiller-Universität Jena mit zehn Fakultäten, die gleichzeitig die älteste durchgehend bestehende Hochschule in Thüringen ist. Mit der Bauhaus-Universität in Weimar mit den Schwerpu…",
+   "ranks": {
+    "bm25_plain": 24,
+    "bm25_stem": 32,
+    "bm25_parts_stem": 2,
+    "dense": 6,
+    "hybrid_plain_dense": 7,
+    "hybrid_parts_stem_dense": 4,
+    "hybrid_parts_stem_dense_rewrite": 4
+   },
+   "query_compound_splits": [
+    {
+     "word": "musikhochschule",
+     "parts": [
+      "musik",
+      "hochschule"
+     ],
+     "stems": [
+      "musik",
+      "hochschul"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "die",
+    "in",
+    "ist",
+    "nach",
+    "weimar"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "hochschul",
+    "musik"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-03970",
+   "question": "Welche Wirtschaftsbranchen auf der St.Helena Insel sind immer noch in der Entwicklungsphase?",
+   "answers": [
+    "Baugewerbe, Landwirtschaft, Handel, Immobilien und der Dienstleistungssektor"
+   ],
+   "gold_passage_id": "b4ae756350ace6b6",
+   "gold_title": "St._Helena__Insel_",
+   "gold_snippet": "== Wirtschaft == Finanziell ist die Insel weitgehend auf die Unterstützung Großbritanniens angewiesen. Hauptindustriezweige sind der Fischfang und die Fischverarbeitung. Der Export von Fisch machte 60 % des Exportvolumens von 95.000 Pfund Sterling aus. Das Dur…",
+   "ranks": {
+    "bm25_plain": 18,
+    "bm25_stem": 20,
+    "bm25_parts_stem": 1,
+    "dense": 1,
+    "hybrid_plain_dense": 3,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "wirtschaftsbranchen",
+     "parts": [
+      "wirtschaft",
+      "branchen"
+     ],
+     "stems": [
+      "wirtschaft",
+      "branch"
+     ]
+    },
+    {
+     "word": "entwicklungsphase",
+     "parts": [
+      "entwicklung",
+      "phase"
+     ],
+     "stems": [
+      "entwickl",
+      "phas"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "auf",
+    "der",
+    "helena",
+    "insel",
+    "sind",
+    "st"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "wirtschaft"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-05977",
+   "question": "In welchem Jahr kam Muammar al Gaddafi zur Welt?",
+   "answers": [
+    "1942 "
+   ],
+   "gold_passage_id": "eaa95fdf02733bbe",
+   "gold_title": "Muammar_al-Gaddafi",
+   "gold_snippet": "== Herkunft und Jugend == Muammar al-Gaddafi wurde nach späteren Angaben am 19. Juni 1942 in Sirte geboren. Andere Quellen geben als Geburtsort Qasr Abu Hadi bei Sirte an. Er entstammte einer Familie von Beduinen aus dem wenig einflussreichen Stamm der Guededf…",
+   "ranks": {
+    "bm25_plain": 12,
+    "bm25_stem": 12,
+    "bm25_parts_stem": 9,
+    "dense": 2,
+    "hybrid_plain_dense": 5,
+    "hybrid_parts_stem_dense": 2,
+    "hybrid_parts_stem_dense_rewrite": 2
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "al",
+    "gaddafi",
+    "in",
+    "muammar"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "welt"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-06045",
+   "question": "Wer hat den obersten Befehl über die Kanadische Armee?",
+   "answers": [
+    "Königin Elisabeth II."
+   ],
+   "gold_passage_id": "585e701e68f8a722",
+   "gold_title": "Kanadische_Streitkräfte",
+   "gold_snippet": "=== Befehlskette === Der Oberbefehlshaber der kanadischen Streitkräfte ist Königin Elisabeth II., Königin nach dem Recht Kanadas, vertreten durch den Generalgouverneur von Kanada, zur Zeit Julie Payette. Der militärische Führer ist der Chief of the Defence Sta…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": 3,
+    "dense": 1,
+    "hybrid_plain_dense": 17,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "den",
+    "die",
+    "kanad"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "befehl"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-06059",
+   "question": "Was gab es bereits vor den Entwicklung von Getreideanbau?",
+   "answers": [
+    "eine jahrtausendelange Nutzung entsprechender Wildvorkommen"
+   ],
+   "gold_passage_id": "e906e7463c2cc226",
+   "gold_title": "Jungsteinzeit",
+   "gold_snippet": "== Neolithische Revolution == In der Levante entstanden einige dauerhafte Siedlungen bereits ''vor'' der Entwicklung der Landwirtschaft. Die Umgebung dieser Siedlungen bot den Bewohnern in der Allerödzeit genügend Ressourcen (Fisch, Fleisch oder Pflanzen). Der…",
+   "ranks": {
+    "bm25_plain": 44,
+    "bm25_stem": 57,
+    "bm25_parts_stem": 2,
+    "dense": 2,
+    "hybrid_plain_dense": 3,
+    "hybrid_parts_stem_dense": 2,
+    "hybrid_parts_stem_dense_rewrite": 2
+   },
+   "query_compound_splits": [
+    {
+     "word": "getreideanbau",
+     "parts": [
+      "getreide",
+      "anbau"
+     ],
+     "stems": [
+      "getreid",
+      "anbau"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "bereit",
+    "den",
+    "entwickl",
+    "von",
+    "vor"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "anbau",
+    "getreid"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-07217",
+   "question": "Wer gilt als die erste Erdgöttin?",
+   "answers": [
+    "Gaia"
+   ],
+   "gold_passage_id": "7af2962db746a0bd",
+   "gold_title": "Gott",
+   "gold_snippet": "==== Erd- und Wassergötter ==== Darstellung der Gaia in einem syrischen Fresko um 730 Eine der ersten Theophanien der Erde und des Bodens war die einer Mutter, die mit Fruchtbarkeit in Verbindung gebracht wurde. Obwohl viele Erd- und einige Fruchtbarkeitsgötte…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": 1,
+    "dense": 1,
+    "hybrid_plain_dense": 4,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "erdgöttin",
+     "parts": [
+      "erd",
+      "göttin"
+     ],
+     "stems": [
+      "erd",
+      "gottin"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "als",
+    "die",
+    "erst"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "erd",
+    "gottin"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-07594",
+   "question": "Wo werden in den USA Exekutivverordnungen der Behörden niedegreschrieben?",
+   "answers": [
+    "im Code of Federal Regulations"
+   ],
+   "gold_passage_id": "f6389579745a68ed",
+   "gold_title": "Recht_der_Vereinigten_Staaten",
+   "gold_snippet": "=== Bundesrecht === Bundesrecht leitet sich von der Verfassung der Vereinigten Staaten ab, die alle gesetzgeberischen Kompetenzen auf der Bundesebene beim Kongress ansiedelt. Dabei sind die Kompetenzen, die überhaupt zur Bundesebene gehören, aufgrund des anges…",
+   "ranks": {
+    "bm25_plain": 73,
+    "bm25_stem": null,
+    "bm25_parts_stem": 1,
+    "dense": 2,
+    "hybrid_plain_dense": 2,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "exekutivverordnungen",
+     "parts": [
+      "exekutiv",
+      "verordnungen"
+     ],
+     "stems": [
+      "exekutiv",
+      "verordn"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "behord",
+    "der",
+    "in",
+    "werd"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "exekutiv",
+    "verordn"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-07658",
+   "question": "Was waren die Gründe für die Nahrungsknappheit in Eritrea?",
+   "answers": [
+    "Dürre und wirtschaftspolitische Inkompetenz der autoritären Regierung"
+   ],
+   "gold_passage_id": "aeff76c9b2ab69a3",
+   "gold_title": "Eritrea",
+   "gold_snippet": "=== Landwirtschaft === Etwa 75 % der Bevölkerung sind in der Landwirtschaft beschäftigt. Trotzdem müssen Nahrungsmittel importiert werden, auch weil während des Krieges und darüber hinaus mindestens 300.000 Personen zum Militärdienst eingezogen waren und daher…",
+   "ranks": {
+    "bm25_plain": 48,
+    "bm25_stem": 88,
+    "bm25_parts_stem": 8,
+    "dense": 2,
+    "hybrid_plain_dense": 11,
+    "hybrid_parts_stem_dense": 2,
+    "hybrid_parts_stem_dense_rewrite": 2
+   },
+   "query_compound_splits": [
+    {
+     "word": "nahrungsknappheit",
+     "parts": [
+      "nahrung",
+      "knappheit"
+     ],
+     "stems": [
+      "nahrung",
+      "knappheit"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "eritrea",
+    "in",
+    "war"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "nahrung"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_wins",
+   "qid": "train-09242",
+   "question": "Welches sind die wichtigsten Wirtschaftszweige in Boston?",
+   "answers": [
+    "Bildungseinrichtungen, Gesundheitswesen, Finanzwirtschaft und Technologie"
+   ],
+   "gold_passage_id": "69db5ad6ecf67430",
+   "gold_title": "Boston\nBoston  ist die größte Stadt in Neuengland und Hauptstadt des Bundesstaates Massachusetts an der Ostküste der Vereinigten Staaten. Die Metropole ist eine der ältesten, wohlhabendsten und kulturell reichsten Städte der USA. Sie beheimatet in ihrem Großraum sowohl die weltberühmte Harvard University als auch das ähnlich bedeutende MIT, beide in Cambridge gelegen. Im kulturellen Bereich sind die Symphony Hall und das in ihr residierende Boston Symphony Orchestra weltbekannt. Die Wirtschaftskraft der Region wird hauptsächlich durch Bildungseinrichtungen, Gesundheitswesen, Finanzwirtschaft und Technologie bestimmt.",
+   "gold_snippet": "Boston  ist die größte Stadt in Neuengland und Hauptstadt des Bundesstaates Massachusetts an der Ostküste der Vereinigten Staaten. Die Metropole ist eine der ältesten, wohlhabendsten und kulturell reichsten Städte der USA. Sie beheimatet in ihrem Großraum sowo…",
+   "ranks": {
+    "bm25_plain": 19,
+    "bm25_stem": 38,
+    "bm25_parts_stem": 9,
+    "dense": 2,
+    "hybrid_plain_dense": 3,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "wirtschaftszweige",
+     "parts": [
+      "wirtschaft",
+      "zweige"
+     ],
+     "stems": [
+      "wirtschaft",
+      "zweig"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "boston",
+    "die",
+    "in",
+    "sind"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "wirtschaft"
+   ],
+   "llm_expansion": "Wirtschaftszweige Boston Industrie Dienstleistungen Technologie Handel"
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-00019",
+   "question": "Was ist das einzige Beweismaterial für das Wort Israel?",
+   "answers": [
+    "die ägyptische Merenptah-Stele"
+   ],
+   "gold_passage_id": "336740857a3716ab",
+   "gold_title": "Israel",
+   "gold_snippet": "== Name == Der älteste Beleg für das Wort „Israel“ ist die ägyptische Merenptah-Stele, die sich heute im Ägyptischen Museum in Kairo befindet. Sie beschreibt einen Feldzug gegen ein Volk Israel im Lande Kanaan und wird auf das Jahr 1211 v. Chr. datiert. Die Vo…",
+   "ranks": {
+    "bm25_plain": 6,
+    "bm25_stem": 6,
+    "bm25_parts_stem": 14,
+    "dense": 4,
+    "hybrid_plain_dense": 1,
+    "hybrid_parts_stem_dense": 2,
+    "hybrid_parts_stem_dense_rewrite": 2
+   },
+   "query_compound_splits": [
+    {
+     "word": "beweismaterial",
+     "parts": [
+      "beweis",
+      "material"
+     ],
+     "stems": [
+      "beweis",
+      "material"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "das",
+    "fur",
+    "isral",
+    "ist",
+    "wort"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Israel Beweis Israel Geschichte Dokument"
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-00272",
+   "question": "Seit wann wird der Orden of the British Empire verliehen?",
+   "answers": [
+    "4. Juni 1917"
+   ],
+   "gold_passage_id": "60224de76e20fe62",
+   "gold_title": "Order_of_the_British_Empire\n, kurz , ist ein britischer Ritterorden, der am 4. Juni 1917 von König Georg V. gestiftet wurde. Die Aufnahme in den Orden würdigt Verdienste in den Bereichen Kunst und Wissenschaft, der Arbeit für gemeinnützige und Wohlfahrtsorganisationen sowie den öffentlichen Dienst. Der Orden ist in eine militärische und eine zivile Abteilung unterteilt und umfasst fünf Ränge, deren obere beide ihre Mitglieder unter besonderen Voraussetzungen in den Ritterstand erheben. Die Anzahl der Mitglieder ist zahlenmäßig nicht begrenzt. Der Orden ist der jüngste und mitgliederstärkste britische Ritterorden und hat die meisten ausländischen Mitglieder.",
+   "gold_snippet": ", kurz , ist ein britischer Ritterorden, der am 4. Juni 1917 von König Georg V. gestiftet wurde. Die Aufnahme in den Orden würdigt Verdienste in den Bereichen Kunst und Wissenschaft, der Arbeit für gemeinnützige und Wohlfahrtsorganisationen sowie den öffentlic…",
+   "ranks": {
+    "bm25_plain": 7,
+    "bm25_stem": 10,
+    "bm25_parts_stem": 11,
+    "dense": 1,
+    "hybrid_plain_dense": 3,
+    "hybrid_parts_stem_dense": 5,
+    "hybrid_parts_stem_dense_rewrite": 5
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "british",
+    "der",
+    "empir",
+    "of",
+    "ord",
+    "the"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-00333",
+   "question": "Welche israelischen Städte verfügen über große Häfen?",
+   "answers": [
+    "Haifa, Ashdod und Eilat"
+   ],
+   "gold_passage_id": "6b63ea56bb1e25db",
+   "gold_title": "Israel",
+   "gold_snippet": "=== Flüsse und Meere === Israel grenzt an zwei Meere: an das Mittelmeer im Westen und an das Rote Meer im Süden. In Haifa, Ashdod und Eilat gibt es teils große Häfen, die ein wichtiger Teil der israelischen Wirtschaft sind. Die wichtigsten Wasserquellen Israel…",
+   "ranks": {
+    "bm25_plain": 5,
+    "bm25_stem": 9,
+    "bm25_parts_stem": 21,
+    "dense": 8,
+    "hybrid_plain_dense": 3,
+    "hybrid_parts_stem_dense": 7,
+    "hybrid_parts_stem_dense_rewrite": 7
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "gross",
+    "haf",
+    "isral"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-00463",
+   "question": "Welches Unternehmen betreibt die Straßenbahn in Straßburg?",
+   "answers": [
+    "Compagnie des transports strasbourgeois (CTS)"
+   ],
+   "gold_passage_id": "bbf10b4355af957e",
+   "gold_title": "Straßburg",
+   "gold_snippet": "=== ÖPNV === Die Straßenbahn Straßburg, welche von der Compagnie des transports strasbourgeois (CTS) betrieben wird, besteht aus sechs Linien (A bis F), die neben den zahlreichen Buslinien den Kern des öffentlichen Nahverkehrs ausmachen. Eine Besonderheit dies…",
+   "ranks": {
+    "bm25_plain": 5,
+    "bm25_stem": 3,
+    "bm25_parts_stem": 12,
+    "dense": 2,
+    "hybrid_plain_dense": 3,
+    "hybrid_parts_stem_dense": 5,
+    "hybrid_parts_stem_dense_rewrite": 5
+   },
+   "query_compound_splits": [
+    {
+     "word": "straßenbahn",
+     "parts": [
+      "straße",
+      "bahn"
+     ],
+     "stems": [
+      "strass",
+      "bahn"
+     ]
+    },
+    {
+     "word": "straßburg",
+     "parts": [
+      "straße",
+      "burg"
+     ],
+     "stems": [
+      "strass",
+      "burg"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "die",
+    "in",
+    "strassburg",
+    "strassenbahn",
+    "welch"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "bahn",
+    "burg",
+    "strass"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-02209",
+   "question": "Seit wann ist es möglich mit der Straßenbahn von Straßburg nach Deutschland zu fahren?",
+   "answers": [
+    "29. April 2017 "
+   ],
+   "gold_passage_id": "bbf10b4355af957e",
+   "gold_title": "Straßburg",
+   "gold_snippet": "=== ÖPNV === Die Straßenbahn Straßburg, welche von der Compagnie des transports strasbourgeois (CTS) betrieben wird, besteht aus sechs Linien (A bis F), die neben den zahlreichen Buslinien den Kern des öffentlichen Nahverkehrs ausmachen. Eine Besonderheit dies…",
+   "ranks": {
+    "bm25_plain": 1,
+    "bm25_stem": 4,
+    "bm25_parts_stem": 21,
+    "dense": 1,
+    "hybrid_plain_dense": 1,
+    "hybrid_parts_stem_dense": 7,
+    "hybrid_parts_stem_dense_rewrite": 7
+   },
+   "query_compound_splits": [
+    {
+     "word": "straßenbahn",
+     "parts": [
+      "straße",
+      "bahn"
+     ],
+     "stems": [
+      "strass",
+      "bahn"
+     ]
+    },
+    {
+     "word": "straßburg",
+     "parts": [
+      "straße",
+      "burg"
+     ],
+     "stems": [
+      "strass",
+      "burg"
+     ]
+    },
+    {
+     "word": "deutschland",
+     "parts": [
+      "deutsch",
+      "land"
+     ],
+     "stems": [
+      "deutsch",
+      "land"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "der",
+    "ist",
+    "mit",
+    "nach",
+    "strassburg",
+    "strassenbahn",
+    "von",
+    "zu"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "bahn",
+    "burg",
+    "deutsch",
+    "strass"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-02923",
+   "question": "Wann endete die Aberdeen Regierung? ",
+   "answers": [
+    "Im Februar 1855"
+   ],
+   "gold_passage_id": "03efff8b013cb82a",
+   "gold_title": "Krimkrieg",
+   "gold_snippet": "=== Großbritannien === Der Krimkrieg zeigte, dass es erhebliche Missstände im britischen Militär gab. Dadurch verlor die Regierung Aberdeen erheblich an Ansehen. Im Februar 1855 wurde sie zum Rücktritt gezwungen, und Palmerston übernahm die Bildung eines neuen…",
+   "ranks": {
+    "bm25_plain": 16,
+    "bm25_stem": 10,
+    "bm25_parts_stem": 12,
+    "dense": 38,
+    "hybrid_plain_dense": 6,
+    "hybrid_parts_stem_dense": 6,
+    "hybrid_parts_stem_dense_rewrite": 6
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "aberde",
+    "die",
+    "regier"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-03234",
+   "question": "Beim Abbau von was haben Insekten in Ökosystem großen Anteil?",
+   "answers": [
+    "organischer Stoffe"
+   ],
+   "gold_passage_id": "7bf10263c888f78b",
+   "gold_title": "Insekten",
+   "gold_snippet": "== Lebensweise == Aufgrund ihrer Vielfalt haben Insekten heute beinah jede ihrer Größe angemessene ökologische Nische realisiert. Dabei spielt eine große Anzahl der Arten eine bedeutende Rolle bei der Remineralisierung organischer Stoffe im Boden, in der Boden…",
+   "ranks": {
+    "bm25_plain": 27,
+    "bm25_stem": 7,
+    "bm25_parts_stem": 20,
+    "dense": 2,
+    "hybrid_plain_dense": 4,
+    "hybrid_parts_stem_dense": 4,
+    "hybrid_parts_stem_dense_rewrite": 4
+   },
+   "query_compound_splits": [
+    {
+     "word": "ökosystem",
+     "parts": [
+      "öko",
+      "system"
+     ],
+     "stems": [
+      "oko",
+      "system"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "gross",
+    "hab",
+    "in",
+    "insekt",
+    "von"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Insekten Abbau Ökosystem Anteil"
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-04233",
+   "question": "Welcher Fußballclub ist unter den drei Vereinen mit den meisten eingetragenen Mitgliedern der Welt?",
+   "answers": [
+    "Benfica Lissabon"
+   ],
+   "gold_passage_id": "4196d9a47d9e9b2f",
+   "gold_title": "FC_Barcelona",
+   "gold_snippet": "=== „Socis“ === Die Mitgliederzahl des FC Barcelona seit Bestehen des Vereins Wesentlichen Einfluss auf die Vereinspolitik haben die ''socis'' (span.: ''socios''), die Mitglieder des FC Barcelona. So wird der Präsident des FC Barcelona durch die Stimmen der Mi…",
+   "ranks": {
+    "bm25_plain": 4,
+    "bm25_stem": 2,
+    "bm25_parts_stem": 36,
+    "dense": 7,
+    "hybrid_plain_dense": 1,
+    "hybrid_parts_stem_dense": 8,
+    "hybrid_parts_stem_dense_rewrite": 8
+   },
+   "query_compound_splits": [
+    {
+     "word": "fußballclub",
+     "parts": [
+      "fußball",
+      "club"
+     ],
+     "stems": [
+      "fussball",
+      "club"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "den",
+    "der",
+    "eingetrag",
+    "ist",
+    "mit",
+    "mitglied",
+    "unt",
+    "verein"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Fußballclub Mitglieder Welt Vereine"
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-06827",
+   "question": "Was ist eine Flechte?",
+   "answers": [
+    "eine symbiotische Lebensgemeinschaft zwischen einem Pilz und Grünalgen oder Cyanobakterien"
+   ],
+   "gold_passage_id": "d1fa200a51b1089c",
+   "gold_title": "Symbiose",
+   "gold_snippet": "== Häufigkeit von Symbiosen == Der größte Teil der Biomasse auf der Erde besteht aus symbiotischen Systemen, da ein großer Teil der Bäume und Sträucher auf Bestäubung durch andere Spezies angewiesen ist. Hinzu kommen die Flechten, eine symbiotische Lebensgemei…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 7,
+    "bm25_parts_stem": 11,
+    "dense": 9,
+    "hybrid_plain_dense": 21,
+    "hybrid_parts_stem_dense": 2,
+    "hybrid_parts_stem_dense_rewrite": 2
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "ein",
+    "flecht",
+    "ist"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "splitting_losses",
+   "qid": "train-07041",
+   "question": "In welcher Distanz können M270 Raketen Ziele erreichen?",
+   "answers": [
+    "bis zu 70 Kilometern"
+   ],
+   "gold_passage_id": "53eea733f579a3e7",
+   "gold_title": "United_States_Army",
+   "gold_snippet": "==== Artillerie ==== Knapp 1.000 Mehrfach-Raketen-Artilleriesysteme des Typs M270 dienen der punktgenauen Bekämpfung von gepanzerten Zielen. Je nach Version haben sie eine Reichweite von bis zu 70 Kilometern Entfernung und können mit entsprechender Streumuniti…",
+   "ranks": {
+    "bm25_plain": 10,
+    "bm25_stem": 4,
+    "bm25_parts_stem": 13,
+    "dense": 7,
+    "hybrid_plain_dense": 5,
+    "hybrid_parts_stem_dense": 6,
+    "hybrid_parts_stem_dense_rewrite": 6
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "in",
+    "konn",
+    "m270",
+    "rak",
+    "ziel"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-01238",
+   "question": "Welcher Schweizer Bahnhof wird am meisten genutzt? ",
+   "answers": [
+    "Zürcher Hauptbahnhof"
+   ],
+   "gold_passage_id": "cd9619bafd6e4ac4",
+   "gold_title": "Bern",
+   "gold_snippet": "==== Öffentlicher Verkehr ==== Mit Erdgas betriebener Bus in der Altstadt Der Berner Hauptbahnhof ist ein bedeutender Eisenbahn- und Busknotenpunkt. Er erzielt nach dem Zürcher Hauptbahnhof mit 150'000 Bahnreisenden pro Tag die schweizweit höchste Benutzerfreq…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": 72,
+    "dense": 5,
+    "hybrid_plain_dense": 21,
+    "hybrid_parts_stem_dense": 9,
+    "hybrid_parts_stem_dense_rewrite": 9
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "bahnhof",
+    "schweiz",
+    "wird"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-01707",
+   "question": "Wie heißt das bekannteste Filmfestival in Ägypten? ",
+   "answers": [
+    "'Cairo International Film Festival"
+   ],
+   "gold_passage_id": "1a79c27e95465959",
+   "gold_title": "Ägypten",
+   "gold_snippet": "=== Kunst und Architektur === Ägypten war eine der ersten Zivilisationen, der es gelang Gestaltungselemente in Kunst und Architektur zu chiffrieren. Die im Dienste der Pharaonen geschaffenen Wandmalereien folgten einem rigiden Code visueller Regeln und Bedeutu…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 9,
+    "bm25_parts_stem": 1,
+    "dense": 2,
+    "hybrid_plain_dense": 22,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "filmfestival",
+     "parts": [
+      "film",
+      "festival"
+     ],
+     "stems": [
+      "film",
+      "festival"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "agypt",
+    "bekannt",
+    "das",
+    "in"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "festival",
+    "film"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-02069",
+   "question": "Was versteht man unter \"Browserkrieg\"?",
+   "answers": [
+    "Mit Erscheinen des ''Internet Explorers'' begann ein Verdrängungswettbewerb zwischen den Browser-Herstellern Microsoft und Netscape"
+   ],
+   "gold_passage_id": "c8caad913627c76e",
+   "gold_title": "Webbrowser",
+   "gold_snippet": "=== Internet Explorer === Aufgrund des Erfolgs des ''Netscape Navigators'' brachte Microsoft, das bis dahin das Internet unterschätzt hatte, 1995 seinen ''Internet Explorer'' heraus, der nicht selbst entwickelt, sondern vom Unternehmen Spyglass (NCSA Mosaic) e…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": 20,
+    "dense": 7,
+    "hybrid_plain_dense": 14,
+    "hybrid_parts_stem_dense": 3,
+    "hybrid_parts_stem_dense_rewrite": 3
+   },
+   "query_compound_splits": [
+    {
+     "word": "browserkrieg",
+     "parts": [
+      "browser",
+      "krieg"
+     ],
+     "stems": [
+      "brows",
+      "krieg"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "browserkrieg"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "brows",
+    "krieg"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-02349",
+   "question": "Welcher Stadt des Britischen Weltreiches wollte sich in den Zweiten Weltkrieg nicht einmischen?",
+   "answers": [
+    "der Irische Freistaat"
+   ],
+   "gold_passage_id": "861803146ff4fc4e",
+   "gold_title": "Britisches_Weltreich",
+   "gold_snippet": "=== Zweiter Weltkrieg === Großbritanniens Kriegserklärung an das von den Nationalsozialisten beherrschte Deutsche Reich im September 1939 schloss die Kronkolonien und Indien mit ein, jedoch nicht automatisch die Dominions. Kanada, Südafrika, Australien und Neu…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 10,
+    "bm25_parts_stem": 13,
+    "dense": 2,
+    "hybrid_plain_dense": 13,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "weltreiches",
+     "parts": [
+      "welt",
+      "reiches"
+     ],
+     "stems": [
+      "welt",
+      "reich"
+     ]
+    },
+    {
+     "word": "weltkrieg",
+     "parts": [
+      "welt",
+      "krieg"
+     ],
+     "stems": [
+      "welt",
+      "krieg"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "britisch",
+    "den",
+    "des",
+    "in",
+    "nicht",
+    "sich",
+    "weltkrieg",
+    "weltreich",
+    "zweit"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "krieg",
+    "reich",
+    "welt"
+   ],
+   "llm_expansion": "Britische Kolonien Zweiter Weltkrieg Nicht einmischen"
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-03611",
+   "question": "Was lösen die Steine in Gletschern aus?",
+   "answers": [
+    "in der Regel einen Schliff vergleichbar mit der Wirkung von Schleifpapier, während größere Partikel deutliche Kratzspuren und Rillen im Fels hinterlassen können"
+   ],
+   "gold_passage_id": "a670703d67032b4e",
+   "gold_title": "Gletscher",
+   "gold_snippet": "==== Gletscherschliff und Gletscherschrammen ==== Im Gletschereis mitgeführtes Gesteinsmaterial verschiedener Korngrößen – von feinem Ton bis zu mehrere Meter messenden Findlingen – kann im Gesteinsuntergrund deutliche Spuren hinterlassen. Feinkörniges Materia…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 75,
+    "bm25_parts_stem": 42,
+    "dense": 2,
+    "hybrid_plain_dense": 20,
+    "hybrid_parts_stem_dense": 10,
+    "hybrid_parts_stem_dense_rewrite": 4
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "die",
+    "gletsch",
+    "in"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Gletscherspaltenbildung Eisbruch Eisbewegung Gletscherausbruch Eisbruchmechanismen"
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-05190",
+   "question": "Wie viel Prozent des Stromverbrauchs auf St.Helen wird durch Windkraft gedeckt?",
+   "answers": [
+    "20 bis 30 %"
+   ],
+   "gold_passage_id": "60c7167610907f54",
+   "gold_title": "St._Helena__Insel_",
+   "gold_snippet": "=== Energieversorgung === Im Jahr 2017 wurden rund 75 % des Stroms auf St. Helena durch sechs Dieselgeneratoren des Kraftwerks in Rupert’s mit einer Leistung von 7600 kW erzeugt. Daneben werden 20 bis 30 % der Elektrizität durch zwölf Windkrafträder in der Dea…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": 2,
+    "dense": 1,
+    "hybrid_plain_dense": 15,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [
+    {
+     "word": "stromverbrauchs",
+     "parts": [
+      "strom",
+      "verbrauchs"
+     ],
+     "stems": [
+      "strom",
+      "verbrauch"
+     ]
+    },
+    {
+     "word": "windkraft",
+     "parts": [
+      "wind",
+      "kraft"
+     ],
+     "stems": [
+      "wind",
+      "kraft"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "auf",
+    "des",
+    "durch",
+    "st"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "kraft",
+    "strom",
+    "wind"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-06969",
+   "question": "Wie schnell darf man auf der Schweizer Autobahn fahren?",
+   "answers": [
+    "60 und 100 km/h"
+   ],
+   "gold_passage_id": "c564ad7c94fa3127",
+   "gold_title": "Bern",
+   "gold_snippet": "==== Strassenverkehr ==== Die Stadt Bern besitzt seit den 1970er-Jahren eine Autobahnumfahrung, die den innerstädtischen Autoverkehr entlastet und Anschlüsse an alle wichtigen Schweizer Autobahnen hat. Die A1 verbindet Bern mit Genf und Zürich, die A12 mit Fre…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 81,
+    "bm25_parts_stem": 49,
+    "dense": 2,
+    "hybrid_plain_dense": 16,
+    "hybrid_parts_stem_dense": 6,
+    "hybrid_parts_stem_dense_rewrite": 6
+   },
+   "query_compound_splits": [
+    {
+     "word": "autobahn",
+     "parts": [
+      "auto",
+      "bahn"
+     ],
+     "stems": [
+      "auto",
+      "bahn"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "auf",
+    "autobahn",
+    "der",
+    "schweiz"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "auto",
+    "bahn"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-08156",
+   "question": "Wie nennt man die portugiesische Kultur des Tanzes? ",
+   "answers": [
+    "Nova Dança Portuguesa"
+   ],
+   "gold_passage_id": "d65ca2e83fc34509",
+   "gold_title": "Portugal",
+   "gold_snippet": "=== Tanz === Im Bereich des Kunsttanzes ist Portugal seit Anfang der 1990er-Jahre recht erfolgreich und gehört mit Russland zu den wichtigsten Ländern in Europa auf diesem Gebiet. Zahlreiche Tänzer sowie Choreographen konnten europaweiten oder weltweiten Ruhm …",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 60,
+    "bm25_parts_stem": 7,
+    "dense": 1,
+    "hybrid_plain_dense": 15,
+    "hybrid_parts_stem_dense": 1,
+    "hybrid_parts_stem_dense_rewrite": 1
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "des",
+    "die",
+    "tanz"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "kultur"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-08266",
+   "question": "Was ist die Amtssprache von Eritrea?",
+   "answers": [
+    "Es gibt keine offiziell festgelegte Amtssprache"
+   ],
+   "gold_passage_id": "3a4cf9d876456270",
+   "gold_title": "Eritrea",
+   "gold_snippet": "=== Sprachen === Die neun Sprachen der neun größten Ethnien gelten formell als gleichberechtigte Nationalsprachen. Diese sind  Tigrinya (ትግርኛ) (2,3 Millionen Sprecher), Tigre (800.000), Afar (300.000), Saho, Kunama, Bedscha, Blin, Nara (je rund 100.000) und Ar…",
+   "ranks": {
+    "bm25_plain": 49,
+    "bm25_stem": 54,
+    "bm25_parts_stem": 12,
+    "dense": 2,
+    "hybrid_plain_dense": 13,
+    "hybrid_parts_stem_dense": 6,
+    "hybrid_parts_stem_dense_rewrite": 6
+   },
+   "query_compound_splits": [
+    {
+     "word": "amtssprache",
+     "parts": [
+      "amt",
+      "sprache"
+     ],
+     "stems": [
+      "amt",
+      "sprach"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "amtssprach",
+    "die",
+    "eritrea",
+    "ist",
+    "von"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "amt",
+    "sprach"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "hybrid_preprocessing_wins_h3",
+   "qid": "train-08689",
+   "question": "Was nennt man im Surfen im Internet?",
+   "answers": [
+    "das aufeinanderfolgende Abrufen beliebiger Hyperlinks als Verbindung zwischen Webseiten"
+   ],
+   "gold_passage_id": "fbb1c825aa40ede8",
+   "gold_title": "Webbrowser\nWebbrowser oder allgemein auch Browser (engl. , '','' ‚stöbern, schmökern, umsehen‘, auch ‚abgrasen‘) sind spezielle Computerprogramme zur Darstellung von Webseiten im ''World Wide Web'' oder allgemein von Dokumenten und Daten. Das Durchstöbern des ''World Wide Webs'' beziehungsweise das aufeinanderfolgende Abrufen beliebiger Hyperlinks als Verbindung zwischen Webseiten mit Hilfe solch eines Programms wird auch als Internetsurfen bezeichnet. Neben HTML-Seiten können Webbrowser verschiedene andere Arten von Dokumenten wie zum Beispiel Bilder und PDF-Dokumente anzeigen. Webbrowser stellen die Benutzeroberfläche für Webanwendungen dar.",
+   "gold_snippet": "Webbrowser oder allgemein auch Browser (engl. , '','' ‚stöbern, schmökern, umsehen‘, auch ‚abgrasen‘) sind spezielle Computerprogramme zur Darstellung von Webseiten im ''World Wide Web'' oder allgemein von Dokumenten und Daten. Das Durchstöbern des ''World Wid…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": 7,
+    "dense": 2,
+    "hybrid_plain_dense": 12,
+    "hybrid_parts_stem_dense": 3,
+    "hybrid_parts_stem_dense_rewrite": 3
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "im"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "internet",
+    "surf"
+   ],
+   "llm_expansion": null
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-00929",
+   "question": "Wer leitete das erste Verfassungskommitee im Osmanischen Reich?",
+   "answers": [
+    "Midhat Pascha"
+   ],
+   "gold_passage_id": "020758c550971c73",
+   "gold_title": "Osmanisches_Reich",
+   "gold_snippet": "==== Erste Verfassungsperiode: 1876 bis 1878 ==== Titelblatt der Osmanischen Verfassung (''Kanûn-ı Esâsî'') von 1876 Die Osmanische Verfassung von 1876 ist neben den Tanzimat-Edikten der dritte Schritt in den großen Reformen des 19. Jahrhunderts. Sie wird als …",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 99,
+    "bm25_parts_stem": 71,
+    "dense": 1,
+    "hybrid_plain_dense": 28,
+    "hybrid_parts_stem_dense": 12,
+    "hybrid_parts_stem_dense_rewrite": 4
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "das",
+    "erst",
+    "im",
+    "osman",
+    "reich"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Erster Verfassungskomitee Osmanisches Reich"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-01081",
+   "question": "Woher kommt der Name Mexikos? ",
+   "answers": [
+    "von der jetzigen Hauptstadt"
+   ],
+   "gold_passage_id": "450abc1cd32ce203",
+   "gold_title": "Mexiko-Stadt",
+   "gold_snippet": "== Der Name der Stadt == Die Mexikaner nennen ihre Hauptstadt meist ''el D.F.'' („el De-Efe“, Abkürzung von ''Distrito Federal'', „Bundesbezirk“). Wenn also von ''México'' die Rede ist, ist normalerweise der Staat gemeint. Weniger häufig und meist in offiziell…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": null,
+    "dense": 1,
+    "hybrid_plain_dense": 13,
+    "hybrid_parts_stem_dense": 13,
+    "hybrid_parts_stem_dense_rewrite": 3
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "der",
+    "nam"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "mexikanische Herkunft indigene Namen sprachliche Ursprünge kulturelle Namensgebung"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-03119",
+   "question": "Welche künstlerischen Werke wurden durch die Auseinandersetzung in der Aufklärung von den Wissenschaftler mehr beachtet?",
+   "answers": [
+    "Romane, Dramen und Gedichte, Bilder und Kompositionen"
+   ],
+   "gold_passage_id": "4b59a51cce532bc7",
+   "gold_title": "Aufklärung",
+   "gold_snippet": "== Kunst == Gegenüber den Wissenschaften (französisch den „lettres“, lateinisch der „Literatur“) und den Künsten (den „artes“ als dem Bereich technischer Erfindungen) emanzipierten sich im Lauf des 17. Jahrhunderts die zwei komplementären Märkte und Bildungsge…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": null,
+    "dense": 1,
+    "hybrid_plain_dense": 14,
+    "hybrid_parts_stem_dense": 13,
+    "hybrid_parts_stem_dense_rewrite": 8
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "aufklar",
+    "den",
+    "der",
+    "die",
+    "in",
+    "von"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Aufklärung Kunst Werke Wissenschaftler Beachtung"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-03241",
+   "question": "Wer ist Gabe Newell?",
+   "answers": [
+    "Geschäftsführer der Valve Corporation"
+   ],
+   "gold_passage_id": "30fd5989e1ef4a27",
+   "gold_title": "Microsoft_Windows_8",
+   "gold_snippet": "=== Windows Store === Modern-Apps können über den neuen ''Windows Store'' bezogen werden. Microsoft sieht In-App-Käufe (das Erweitern von installierten Programmen um weitere Funktionen direkt aus diesen heraus) vor und bietet eine Möglichkeit, die Anwendungen …",
+   "ranks": {
+    "bm25_plain": 1,
+    "bm25_stem": 1,
+    "bm25_parts_stem": 12,
+    "dense": null,
+    "hybrid_plain_dense": 1,
+    "hybrid_parts_stem_dense": 27,
+    "hybrid_parts_stem_dense_rewrite": 4
+   },
+   "query_compound_splits": [
+    {
+     "word": "newell",
+     "parts": [
+      "new",
+      "ell"
+     ],
+     "stems": [
+      "new",
+      "ell"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "gab",
+    "newell"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "ell",
+    "new"
+   ],
+   "llm_expansion": "Gabe Newell Gabe Newell Computer Hardware"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-03371",
+   "question": "Welche Territorien gehören zum Griechenland?",
+   "answers": [
+    "griechischen Festland am südlichen Ende des Balkans, der Halbinsel Peloponnes, die jedoch durch den Bau des Kanals von Korinth (eingeweiht 1893) vom Festland getrennt wurde, sowie zahlreichen Inseln zusammen, die hauptsächlich in der Ägäis, im Ionischen, aber auch im Libyschen Meer liegen"
+   ],
+   "gold_passage_id": "2075bbe735e478b0",
+   "gold_title": "Griechenland",
+   "gold_snippet": "== Geographie == Griechenland liegt am östlichen Mittelmeer in Südeuropa und setzt sich geographisch aus dem griechischen Festland am südlichen Ende des Balkans, der Halbinsel Peloponnes, die jedoch durch den Bau des Kanals von Korinth (eingeweiht 1893) vom Fe…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 86,
+    "bm25_parts_stem": 74,
+    "dense": 2,
+    "hybrid_plain_dense": 27,
+    "hybrid_parts_stem_dense": 12,
+    "hybrid_parts_stem_dense_rewrite": 3
+   },
+   "query_compound_splits": [
+    {
+     "word": "griechenland",
+     "parts": [
+      "griechen",
+      "land"
+     ],
+     "stems": [
+      "griech",
+      "land"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "griechenland",
+    "zum"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "griech",
+    "land"
+   ],
+   "llm_expansion": "Griechenland Territorien Inseln Archipel Region"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-03565",
+   "question": "Was versteht man unter NES?",
+   "answers": [
+    "eine stationäre 8-Bit-Spielkonsole des japanischen Spielkonsolenherstellers Nintendo"
+   ],
+   "gold_passage_id": "1b51223ac910434c",
+   "gold_title": "Nintendo_Entertainment_System\nDas Nintendo Entertainment System (kurz meist NES genannt) ist eine stationäre 8-Bit-Spielkonsole des japanischen Spielkonsolenherstellers Nintendo. Die Konsole erschien in Nordamerika, Brasilien, Europa, Asien und Australien. Die japanische Version wurde als Famicom (kurz für ''Family Computer'') vermarktet. Das NES war mit über 60 Millionen verkauften Einheiten lange Zeit die meistverkaufte Konsole überhaupt. Nach dem Zusammenbruch der Videospielebranche im Jahre 1983, dem sogenannten „Video Game Crash“, belebte Nintendo den Heimkonsolenmarkt mit ihrer Konsole neu. Der Controller führte das Steuerkreuz (kurz: ''D-Pad'' für ''Direction-Pad'') ein und definierte die grundsätzliche Tastenanordnung der Gamepads. Bekannte Spieleserien wie Super Mario Bros., The Legend of Zelda, Metroid oder Castlevania gaben auf dem NES ihr Heimkonsolen-Debüt.",
+   "gold_snippet": "Das Nintendo Entertainment System (kurz meist NES genannt) ist eine stationäre 8-Bit-Spielkonsole des japanischen Spielkonsolenherstellers Nintendo. Die Konsole erschien in Nordamerika, Brasilien, Europa, Asien und Australien. Die japanische Version wurde als …",
+   "ranks": {
+    "bm25_plain": 70,
+    "bm25_stem": 66,
+    "bm25_parts_stem": null,
+    "dense": 1,
+    "hybrid_plain_dense": 11,
+    "hybrid_parts_stem_dense": 12,
+    "hybrid_parts_stem_dense_rewrite": 7
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "nes"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Netzwerk-Energie-System NES"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-04907",
+   "question": "Welcher Fluss fließt durch Philadelphia?",
+   "answers": [
+    "Delaware River"
+   ],
+   "gold_passage_id": "53a4279b91d963a5",
+   "gold_title": "Philadelphia\nPhiladelphia ist eine Stadt im US-Bundesstaat Pennsylvania. Mit rund 1,6 Millionen Einwohnern (Stand: 2016, Schätzung des U.S. Census Bureau) ist sie die sechstgrößte Stadt der Vereinigten Staaten und die größte des Bundesstaates Pennsylvania. An der Ostküste ist Philadelphia nach New York City die zweitgrößte Stadt. Die Stadt liegt am Delaware River im Zentrum der Metropolregion Delaware Valley.\nIn der Geschichte der USA ist Philadelphia eine der bedeutendsten Städte. Nach New York und vor Washington war sie 1790 bis 1800 Nationalhauptstadt und damals die größte Stadt der USA sowie nach London die zweitgrößte englischsprachige Stadt der Welt. In Philadelphia tagte der erste und teilweise auch der zweite Kontinentalkongress sowie der Verfassungskonvent von 1787, die Amerikanische Unabhängigkeitserklärung (4. Juli 1776) wurde hier verkündet und die Verfassung beschlossen.\nPhiladelphia wird umgangssprachlich ''Philly'' oder ''City of Brotherly Love'' genannt. Der Name der Stadt ist dem mehrerer antiker Städte (, von ''Philádelphos'', dem Beinamen Attalos II.) nachempfunden und wurde von William Penn wohl auch direkt auf das unabhängig gebildete Substantiv () bezogen. Er ist zusammengesetzt aus den Wurzeln von  oder  und letztlich  sowie , bedeutet also eben ‚Ort brüderlicher Liebe‘ oder ‚Bruderliebe‘.",
+   "gold_snippet": "Philadelphia ist eine Stadt im US-Bundesstaat Pennsylvania. Mit rund 1,6 Millionen Einwohnern (Stand: 2016, Schätzung des U.S. Census Bureau) ist sie die sechstgrößte Stadt der Vereinigten Staaten und die größte des Bundesstaates Pennsylvania. An der Ostküste …",
+   "ranks": {
+    "bm25_plain": 85,
+    "bm25_stem": 85,
+    "bm25_parts_stem": 90,
+    "dense": 1,
+    "hybrid_plain_dense": 12,
+    "hybrid_parts_stem_dense": 13,
+    "hybrid_parts_stem_dense_rewrite": 3
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "philadelphia"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Fluss Philadelphia Delaware River"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-05648",
+   "question": "Was sind die größten Sport Clubs Uruguays?",
+   "answers": [
+    " Nacional und Peñaro"
+   ],
+   "gold_passage_id": "c2b95354701e91c1",
+   "gold_title": "Montevideo",
+   "gold_snippet": "== Sport == Montevideo ist auch in sportlicher Hinsicht die zentrale Stadt des Landes. So stammt etwa der überwiegende Teil der im Profifußball vertretenen Vereine aus der Hauptstadt. So haben neben den beiden dominierenden, großen Klubs des Landes, Nacional u…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": null,
+    "dense": 1,
+    "hybrid_plain_dense": 15,
+    "hybrid_parts_stem_dense": 19,
+    "hybrid_parts_stem_dense_rewrite": 5
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "die",
+    "sind",
+    "sport"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "größte Sportclubs Uruguay Fußballvereine Uruguay Sport"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-06148",
+   "question": "Welches Gebiet wurde von der Lhasas-Regierung regiert?",
+   "answers": [
+    "„politischen Tibet“"
+   ],
+   "gold_passage_id": "1390586626344ca5",
+   "gold_title": "Tibet",
+   "gold_snippet": "=== Autonomes Gebiet Tibet === Detaillierte Karte des Tibetischen Kulturraums und der autonomen tibetischen Verwaltungsgliederungen der VR China Das ''Autonome Gebiet Tibet'' ist eine Verwaltungseinheit der Volksrepublik China. Es umfasst ein Gebiet von 1,2 Mi…",
+   "ranks": {
+    "bm25_plain": 18,
+    "bm25_stem": 46,
+    "bm25_parts_stem": null,
+    "dense": 2,
+    "hybrid_plain_dense": 1,
+    "hybrid_parts_stem_dense": 14,
+    "hybrid_parts_stem_dense_rewrite": 2
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "der",
+    "gebiet",
+    "regier",
+    "von"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Lhasa Regierung Gebiet Verwaltung"
+  },
+  {
+   "category": "llm_rewrite_wins_h5",
+   "qid": "train-06334",
+   "question": "Wie groß ist North Carolina?",
+   "answers": [
+    "139.389 Quadratkilometern (Landfläche 125.919 km²)"
+   ],
+   "gold_passage_id": "a8d074854ec0ff03",
+   "gold_title": "North_Carolina",
+   "gold_snippet": "=== Lage und Ausdehnung === North Carolina liegt an der Südostküste der Vereinigten Staaten und grenzt an die Bundesstaaten South Carolina und Georgia im Süden, Tennessee im Westen und Virginia im Norden. Im Osten liegt der Atlantik. Die Nordgrenze des Staats …",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 47,
+    "bm25_parts_stem": 44,
+    "dense": 1,
+    "hybrid_plain_dense": 44,
+    "hybrid_parts_stem_dense": 11,
+    "hybrid_parts_stem_dense_rewrite": 3
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "carolina",
+    "gross",
+    "ist",
+    "north"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Größe North Carolina Fläche Einwohner"
+  },
+  {
+   "category": "residual_hard_failures",
+   "qid": "train-01641",
+   "question": "Warum gehen gut gelaunte Menschen höhere Risiken ein? ",
+   "answers": [
+    "da das Risiko eines negativen Ausgangs der Situation gerne unterschätzt wird"
+   ],
+   "gold_passage_id": "d61a32354de391b0",
+   "gold_title": "Emotion",
+   "gold_snippet": "=== Urteile und Entscheidungen === Emotionen beeinflussen die Beurteilung, ob etwas positiv oder negativ, nützlich oder bedrohlich ist. Beurteilungen fallen dabei positiver aus, wenn die Stimmung positiv ist. Befindet man sich in einer positiven Stimmung, werd…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": null,
+    "bm25_parts_stem": null,
+    "dense": 11,
+    "hybrid_plain_dense": 27,
+    "hybrid_parts_stem_dense": 30,
+    "hybrid_parts_stem_dense_rewrite": 30
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "ein",
+    "mensch"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "residual_hard_failures",
+   "qid": "train-03433",
+   "question": "Wann hat man angefangen Papier in Europa zu benutzen?",
+   "answers": [
+    "im 12. Jahrhundert"
+   ],
+   "gold_passage_id": "00f5bd6c9cab2e08",
+   "gold_title": "Chinesische_Schrift",
+   "gold_snippet": "=== Vom Altertum zur Neuzeit === Als besondere Schriftsubstrate des chinesischen Altertums gelten Seide und Bambus, der in schmale Brettchen geschnitten beschrieben wurde (wie Guodian-Bambustexte). Beide findet man im europäischen Altertum nicht, wo die Verwen…",
+   "ranks": {
+    "bm25_plain": 36,
+    "bm25_stem": 20,
+    "bm25_parts_stem": 52,
+    "dense": 19,
+    "hybrid_plain_dense": 11,
+    "hybrid_parts_stem_dense": 15,
+    "hybrid_parts_stem_dense_rewrite": 15
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "europa",
+    "in",
+    "man",
+    "papi",
+    "zu"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "residual_hard_failures",
+   "qid": "train-04970",
+   "question": "Woher kommt Hafis? ",
+   "answers": [
+    "Persien"
+   ],
+   "gold_passage_id": "306e014ecb964611",
+   "gold_title": "Iran",
+   "gold_snippet": "=== Literatur === Persien, hierbei insbesondere das südliche Fars, weist in der Dichtkunst zahlreiche Berühmtheiten auf, von denen Firdausi, Hafis und Saadi einige der bekanntesten sind. In der Neuzeit gewann die Prosa in der persischen Literatur zunehmende Be…",
+   "ranks": {
+    "bm25_plain": 33,
+    "bm25_stem": 33,
+    "bm25_parts_stem": 33,
+    "dense": null,
+    "hybrid_plain_dense": 67,
+    "hybrid_parts_stem_dense": 67,
+    "hybrid_parts_stem_dense_rewrite": 22
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "hafis"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": "Hafis Herkunft Hafis Ursprung Hafis Name"
+  },
+  {
+   "category": "residual_hard_failures",
+   "qid": "train-08730",
+   "question": "Wer setzte Napoleons Eroberungen 1815 ein Ende?",
+   "answers": [
+    "eine Koalition europäischer Armeen"
+   ],
+   "gold_passage_id": "267ae42c6b1a9450",
+   "gold_title": "Britisches_Weltreich",
+   "gold_snippet": "=== Napoleonische Kriege und Abschaffung der Sklaverei === Während der Herrschaft Napoleon Bonapartes wurde Großbritannien im sogenannten Britisch-Französischen Kolonialkonflikt erneut durch das neu entstandene französische Kaiserreich herausgefordert. Im Gege…",
+   "ranks": {
+    "bm25_plain": null,
+    "bm25_stem": 30,
+    "bm25_parts_stem": 27,
+    "dense": 14,
+    "hybrid_plain_dense": 29,
+    "hybrid_parts_stem_dense": 13,
+    "hybrid_parts_stem_dense_rewrite": 13
+   },
+   "query_compound_splits": [],
+   "shared_stems_before_splitting": [
+    "1815",
+    "ein",
+    "napoleon"
+   ],
+   "shared_stems_gained_by_splitting": [],
+   "llm_expansion": null
+  },
+  {
+   "category": "residual_hard_failures",
+   "qid": "train-08788",
+   "question": "In welcher Sprache wurde an der Uni Straßburg im 18. Jahrhundert unterrichtet?",
+   "answers": [
+    "auf Deutsch "
+   ],
+   "gold_passage_id": "efe1b403d2bed284",
+   "gold_title": "Elsass",
+   "gold_snippet": "=== Französisches Königreich 1648–1789 === Zwischen 1633 und 1681 übernahm das Königreich Frankreich nach und nach, teils durch Verträge (de jure), teils durch Annexion (de facto), in den meisten elsässischen Regionen die Landesherrschaft, meist aber nicht die…",
+   "ranks": {
+    "bm25_plain": 62,
+    "bm25_stem": 95,
+    "bm25_parts_stem": null,
+    "dense": 14,
+    "hybrid_plain_dense": 9,
+    "hybrid_parts_stem_dense": 35,
+    "hybrid_parts_stem_dense_rewrite": 35
+   },
+   "query_compound_splits": [
+    {
+     "word": "straßburg",
+     "parts": [
+      "straße",
+      "burg"
+     ],
+     "stems": [
+      "strass",
+      "burg"
+     ]
+    }
+   ],
+   "shared_stems_before_splitting": [
+    "an",
+    "der",
+    "im",
+    "in",
+    "sprach",
+    "strassburg",
+    "wurd"
+   ],
+   "shared_stems_gained_by_splitting": [
+    "burg",
+    "strass"
+   ],
+   "llm_expansion": null
+  }
+ ]
+}

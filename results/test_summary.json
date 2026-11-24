@@ -1,0 +1,716 @@
+{
+ "split": "test",
+ "n_queries": 1025,
+ "n_gold_passages": 192,
+ "headline_pool": "own_hard_negatives_dropped",
+ "secondary_pool": "as_shipped",
+ "systems": {
+  "bm25_plain": {
+   "description": "BM25 on plain lowercase tokens (the baseline)",
+   "seconds": 146.9,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.4097560975609756,
+    "recall@5": 0.631219512195122,
+    "recall@10": 0.7082926829268292,
+    "recall@20": 0.791219512195122,
+    "recall@100": 0.8868292682926829,
+    "mrr@10": 0.5022733255903984,
+    "recall@10_ci95": [
+     0.6679648519110236,
+     0.7471050760411447
+    ],
+    "mrr@10_ci95": [
+     0.46264490161487615,
+     0.5428884203457953
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.20780487804878048,
+    "recall@5": 0.5180487804878049,
+    "recall@10": 0.6702439024390244,
+    "recall@20": 0.7814634146341464,
+    "recall@100": 0.8868292682926829,
+    "mrr@10": 0.3275272938443663,
+    "recall@10_ci95": [
+     0.6291258748027762,
+     0.7104490794311075
+    ],
+    "mrr@10_ci95": [
+     0.2936115194476756,
+     0.3637049494481701
+    ]
+   }
+  },
+  "bm25_stem": {
+   "description": "BM25 on Snowball German stems",
+   "seconds": 0.8,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.4448780487804878,
+    "recall@5": 0.6848780487804879,
+    "recall@10": 0.7717073170731708,
+    "recall@20": 0.8370731707317073,
+    "recall@100": 0.9385365853658536,
+    "mrr@10": 0.547682926829268,
+    "recall@10_ci95": [
+     0.7341035050117989,
+     0.8083775802506222
+    ],
+    "mrr@10_ci95": [
+     0.509403966893305,
+     0.5859914522511944
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.2702439024390244,
+    "recall@5": 0.5921951219512195,
+    "recall@10": 0.7317073170731707,
+    "recall@20": 0.8282926829268292,
+    "recall@100": 0.937560975609756,
+    "mrr@10": 0.39902864885791695,
+    "recall@10_ci95": [
+     0.6930863934491045,
+     0.7691561423650976
+    ],
+    "mrr@10_ci95": [
+     0.36453548669549435,
+     0.4354494846040596
+    ]
+   }
+  },
+  "bm25_parts_stem": {
+   "description": "BM25 on stems; noun compounds replaced by their parts (own lexicon splitter)",
+   "seconds": 0.7,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.48292682926829267,
+    "recall@5": 0.7317073170731707,
+    "recall@10": 0.8136585365853658,
+    "recall@20": 0.8770731707317073,
+    "recall@100": 0.9580487804878048,
+    "mrr@10": 0.5904579945799457,
+    "recall@10_ci95": [
+     0.7777777777777778,
+     0.8484232443668346
+    ],
+    "mrr@10_ci95": [
+     0.5504361836899747,
+     0.6291924354504582
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.3307317073170732,
+    "recall@5": 0.6458536585365854,
+    "recall@10": 0.784390243902439,
+    "recall@20": 0.8663414634146341,
+    "recall@100": 0.9560975609756097,
+    "mrr@10": 0.4628850174216026,
+    "recall@10_ci95": [
+     0.7481461818961819,
+     0.8193359375
+    ],
+    "mrr@10_ci95": [
+     0.42508536641929495,
+     0.5019107683134267
+    ]
+   }
+  },
+  "bm25_split_stem": {
+   "description": "BM25 on stems; noun compounds also indexed by their parts (own lexicon splitter)",
+   "seconds": 0.8,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.46634146341463417,
+    "recall@5": 0.7141463414634146,
+    "recall@10": 0.8048780487804879,
+    "recall@20": 0.8673170731707317,
+    "recall@100": 0.9521951219512195,
+    "mrr@10": 0.576185830429733,
+    "recall@10_ci95": [
+     0.7694380783021839,
+     0.8396231113282718
+    ],
+    "mrr@10_ci95": [
+     0.536889509730782,
+     0.6148904646065886
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.2848780487804878,
+    "recall@5": 0.6390243902439025,
+    "recall@10": 0.7795121951219512,
+    "recall@20": 0.8507317073170731,
+    "recall@100": 0.9521951219512195,
+    "mrr@10": 0.42887843592721614,
+    "recall@10_ci95": [
+     0.7420947432345886,
+     0.8156590683845392
+    ],
+    "mrr@10_ci95": [
+     0.39263307367208455,
+     0.46617717735648534
+    ]
+   }
+  },
+  "dense": {
+   "description": "Dense retrieval with multilingual-e5-small (used as published, no fine-tuning)",
+   "seconds": 0.8,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.5941463414634146,
+    "recall@5": 0.8624390243902439,
+    "recall@10": 0.9239024390243903,
+    "recall@20": 0.9629268292682926,
+    "recall@100": 0.9892682926829268,
+    "mrr@10": 0.7090375532326756,
+    "recall@10_ci95": [
+     0.904044574786615,
+     0.9420589959598791
+    ],
+    "mrr@10_ci95": [
+     0.6742513842929508,
+     0.7447298697617575
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.49560975609756097,
+    "recall@5": 0.8429268292682927,
+    "recall@10": 0.9160975609756098,
+    "recall@20": 0.9590243902439024,
+    "recall@100": 0.9892682926829268,
+    "mrr@10": 0.6409008904374761,
+    "recall@10_ci95": [
+     0.8954937679769894,
+     0.9352657004830918
+    ],
+    "mrr@10_ci95": [
+     0.6036631623925724,
+     0.6788278361342172
+    ]
+   }
+  },
+  "hybrid_plain_dense": {
+   "description": "Reciprocal rank fusion (k=60) of plain BM25 and multilingual-e5-small",
+   "seconds": 0.9,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.5278048780487805,
+    "recall@5": 0.8107317073170732,
+    "recall@10": 0.8887804878048781,
+    "recall@20": 0.9404878048780487,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.6516322106078207,
+    "recall@10_ci95": [
+     0.8613859019745187,
+     0.9141676316446734
+    ],
+    "mrr@10_ci95": [
+     0.6152394619418706,
+     0.6884881808617226
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.36097560975609755,
+    "recall@5": 0.7678048780487805,
+    "recall@10": 0.8741463414634146,
+    "recall@20": 0.9336585365853659,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.5249392179636073,
+    "recall@10_ci95": [
+     0.8451106533068136,
+     0.9012464046021093
+    ],
+    "mrr@10_ci95": [
+     0.4893256339586137,
+     0.561492105504628
+    ]
+   }
+  },
+  "hybrid_stem_dense": {
+   "description": "Reciprocal rank fusion (k=60) of BM25 on stems and multilingual-e5-small",
+   "seconds": 0.9,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.5834146341463414,
+    "recall@5": 0.8390243902439024,
+    "recall@10": 0.9121951219512195,
+    "recall@20": 0.96,
+    "recall@100": 0.9960975609756098,
+    "mrr@10": 0.6921281455671705,
+    "recall@10_ci95": [
+     0.8884717972820069,
+     0.9340775273964605
+    ],
+    "mrr@10_ci95": [
+     0.6569780515158206,
+     0.7284408380219513
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.4165853658536585,
+    "recall@5": 0.7931707317073171,
+    "recall@10": 0.8985365853658537,
+    "recall@20": 0.9590243902439024,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.5731641502129311,
+    "recall@10_ci95": [
+     0.8730761269549218,
+     0.9223117001690209
+    ],
+    "mrr@10_ci95": [
+     0.5368103691594008,
+     0.6103738168155277
+    ]
+   }
+  },
+  "hybrid_parts_stem_dense": {
+   "description": "Reciprocal rank fusion (k=60) of BM25 on stems with compounds replaced by parts (best lexical) and multilingual-e5-small",
+   "seconds": 0.9,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.6039024390243902,
+    "recall@5": 0.8614634146341463,
+    "recall@10": 0.9239024390243903,
+    "recall@20": 0.9697560975609756,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.7142493224932253,
+    "recall@10_ci95": [
+     0.9016881129843901,
+     0.9439530161173101
+    ],
+    "mrr@10_ci95": [
+     0.6789968918057196,
+     0.750525144817564
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.45658536585365855,
+    "recall@5": 0.8224390243902439,
+    "recall@10": 0.9014634146341464,
+    "recall@20": 0.9639024390243902,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.6068842431281464,
+    "recall@10_ci95": [
+     0.8748796208935269,
+     0.925388966655524
+    ],
+    "mrr@10_ci95": [
+     0.5705765530711585,
+     0.6444277615013225
+    ]
+   }
+  },
+  "hybrid_split_stem_dense": {
+   "description": "Reciprocal rank fusion (k=60) of BM25 on stems + compound parts and multilingual-e5-small",
+   "seconds": 0.9,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.5882926829268292,
+    "recall@5": 0.8546341463414634,
+    "recall@10": 0.9209756097560976,
+    "recall@20": 0.9648780487804878,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.7037727448703063,
+    "recall@10_ci95": [
+     0.8995214155282806,
+     0.9407488060349506
+    ],
+    "mrr@10_ci95": [
+     0.6684329551785583,
+     0.7400552597347456
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.455609756097561,
+    "recall@5": 0.8117073170731708,
+    "recall@10": 0.9082926829268293,
+    "recall@20": 0.9619512195121951,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.6026329849012779,
+    "recall@10_ci95": [
+     0.8826428784600462,
+     0.9308984165540867
+    ],
+    "mrr@10_ci95": [
+     0.5666190520734844,
+     0.6401996007642167
+    ]
+   }
+  },
+  "hybrid_parts_stem_dense_rewrite": {
+   "description": "hybrid_parts_stem_dense + Gemma-4 (gemma4:e2b-it-qat, temp=0) query expansion on uncertain queries",
+   "seconds": 0.8,
+   "own_hard_negatives_dropped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.6058536585365853,
+    "recall@5": 0.8653658536585366,
+    "recall@10": 0.9317073170731708,
+    "recall@20": 0.9726829268292683,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.7178614014711577,
+    "recall@10_ci95": [
+     0.9110037981551818,
+     0.9508200751164627
+    ],
+    "mrr@10_ci95": [
+     0.6825523801634754,
+     0.7536050517788525
+    ]
+   },
+   "as_shipped": {
+    "n_queries": 1025,
+    "n_gold_passages": 192,
+    "recall@1": 0.4585365853658537,
+    "recall@5": 0.8282926829268292,
+    "recall@10": 0.9073170731707317,
+    "recall@20": 0.9648780487804878,
+    "recall@100": 0.9951219512195122,
+    "mrr@10": 0.6101939605110344,
+    "recall@10_ci95": [
+     0.881970106644762,
+     0.9305835010060363
+    ],
+    "mrr@10_ci95": [
+     0.5749004024917451,
+     0.6471350683253411
+    ]
+   }
+  }
+ },
+ "hypotheses": {
+  "own_hard_negatives_dropped": [
+   {
+    "id": "H1",
+    "claim": "Stems or lemmas help BM25",
+    "system": "bm25_stem",
+    "baseline": "bm25_plain",
+    "system_recall@10": 0.7717073170731708,
+    "baseline_recall@10": 0.7082926829268292,
+    "recall@10_diff": 0.06341463414634146,
+    "recall@10_ci95": [
+     0.04146100691016782,
+     0.08662961149751276
+    ],
+    "recall@10_p_raw": 9.999000099990002e-05,
+    "recall@10_p_holm": 0.0005999400059994001,
+    "gained": 92,
+    "lost": 27,
+    "mrr@10_diff": 0.045409601238869536,
+    "mrr@10_ci95": [
+     0.027595845113934547,
+     0.06441837850738999
+    ],
+    "mrr@10_p_raw": 9.999000099990002e-05,
+    "supported": true
+   },
+   {
+    "id": "H2",
+    "claim": "Compound splitting helps on top",
+    "system": "bm25_parts_stem",
+    "baseline": "bm25_stem",
+    "system_recall@10": 0.8136585365853658,
+    "baseline_recall@10": 0.7717073170731708,
+    "recall@10_diff": 0.041951219512195125,
+    "recall@10_ci95": [
+     0.0210315013209172,
+     0.06383028668464688
+    ],
+    "recall@10_p_raw": 0.00019998000199980003,
+    "recall@10_p_holm": 0.0007999200079992001,
+    "gained": 68,
+    "lost": 25,
+    "mrr@10_diff": 0.04277506775067751,
+    "mrr@10_ci95": [
+     0.025519458288133054,
+     0.06021843042676376
+    ],
+    "mrr@10_p_raw": 9.999000099990002e-05,
+    "supported": true
+   },
+   {
+    "id": "H3",
+    "claim": "The preprocessing gain survives next to a dense model",
+    "system": "hybrid_parts_stem_dense",
+    "baseline": "hybrid_plain_dense",
+    "system_recall@10": 0.9239024390243903,
+    "baseline_recall@10": 0.8887804878048781,
+    "recall@10_diff": 0.0351219512195122,
+    "recall@10_ci95": [
+     0.014520487136916973,
+     0.057728164733406945
+    ],
+    "recall@10_p_raw": 0.0017998200179982,
+    "recall@10_p_holm": 0.0053994600539946005,
+    "gained": 59,
+    "lost": 23,
+    "mrr@10_diff": 0.06261711188540459,
+    "mrr@10_ci95": [
+     0.04412215171690856,
+     0.08277727259659329
+    ],
+    "mrr@10_p_raw": 9.999000099990002e-05,
+    "supported": true
+   },
+   {
+    "id": "H4a",
+    "claim": "The hybrid beats the dense model alone",
+    "system": "hybrid_parts_stem_dense",
+    "baseline": "dense",
+    "system_recall@10": 0.9239024390243903,
+    "baseline_recall@10": 0.9239024390243903,
+    "recall@10_diff": 0.0,
+    "recall@10_ci95": [
+     -0.023121944693730804,
+     0.020913842854979214
+    ],
+    "recall@10_p_raw": 1.0,
+    "recall@10_p_holm": 1.0,
+    "gained": 45,
+    "lost": 45,
+    "mrr@10_diff": 0.005211769260549748,
+    "mrr@10_ci95": [
+     -0.019516717531819675,
+     0.029821484344459578
+    ],
+    "mrr@10_p_raw": 0.6719328067193281,
+    "supported": false
+   },
+   {
+    "id": "H4b",
+    "claim": "The hybrid beats the best lexical system alone",
+    "system": "hybrid_parts_stem_dense",
+    "baseline": "bm25_parts_stem",
+    "system_recall@10": 0.9239024390243903,
+    "baseline_recall@10": 0.8136585365853658,
+    "recall@10_diff": 0.11024390243902439,
+    "recall@10_ci95": [
+     0.08536497673222179,
+     0.13595166163141995
+    ],
+    "recall@10_p_raw": 9.999000099990002e-05,
+    "recall@10_p_holm": 0.0005999400059994001,
+    "gained": 119,
+    "lost": 6,
+    "mrr@10_diff": 0.12379132791327914,
+    "mrr@10_ci95": [
+     0.10295969692500904,
+     0.14590541679567834
+    ],
+    "mrr@10_p_raw": 9.999000099990002e-05,
+    "supported": true
+   },
+   {
+    "id": "H5",
+    "claim": "LLM rewriting of unsure queries helps",
+    "system": "hybrid_parts_stem_dense_rewrite",
+    "baseline": "hybrid_parts_stem_dense",
+    "system_recall@10": 0.9317073170731708,
+    "baseline_recall@10": 0.9239024390243903,
+    "recall@10_diff": 0.007804878048780488,
+    "recall@10_ci95": [
+     0.001,
+     0.015197857316213433
+    ],
+    "recall@10_p_raw": 0.053094690530946904,
+    "recall@10_p_holm": 0.10618938106189381,
+    "gained": 10,
+    "lost": 2,
+    "mrr@10_diff": 0.0036120789779326367,
+    "mrr@10_ci95": [
+     -9.294644174440046e-05,
+     0.0074621856570416785
+    ],
+    "mrr@10_p_raw": 0.056194380561943806,
+    "supported": false
+   }
+  ],
+  "as_shipped": [
+   {
+    "id": "H1",
+    "claim": "Stems or lemmas help BM25",
+    "system": "bm25_stem",
+    "baseline": "bm25_plain",
+    "system_recall@10": 0.7317073170731707,
+    "baseline_recall@10": 0.6702439024390244,
+    "recall@10_diff": 0.06146341463414634,
+    "recall@10_ci95": [
+     0.03876562417754168,
+     0.08454846329598
+    ],
+    "recall@10_p_raw": 9.999000099990002e-05,
+    "recall@10_p_holm": 0.0005999400059994001,
+    "gained": 101,
+    "lost": 38,
+    "mrr@10_diff": 0.07150135501355014,
+    "mrr@10_ci95": [
+     0.055613694664259715,
+     0.0887883721248516
+    ],
+    "mrr@10_p_raw": 9.999000099990002e-05,
+    "supported": true
+   },
+   {
+    "id": "H2",
+    "claim": "Compound splitting helps on top",
+    "system": "bm25_parts_stem",
+    "baseline": "bm25_stem",
+    "system_recall@10": 0.784390243902439,
+    "baseline_recall@10": 0.7317073170731707,
+    "recall@10_diff": 0.05268292682926829,
+    "recall@10_ci95": [
+     0.03173074462640737,
+     0.07468589268564374
+    ],
+    "recall@10_p_raw": 9.999000099990002e-05,
+    "recall@10_p_holm": 0.0005999400059994001,
+    "gained": 83,
+    "lost": 29,
+    "mrr@10_diff": 0.06385636856368564,
+    "mrr@10_ci95": [
+     0.047267273802841396,
+     0.08065103809285043
+    ],
+    "mrr@10_p_raw": 9.999000099990002e-05,
+    "supported": true
+   },
+   {
+    "id": "H3",
+    "claim": "The preprocessing gain survives next to a dense model",
+    "system": "hybrid_parts_stem_dense",
+    "baseline": "hybrid_plain_dense",
+    "system_recall@10": 0.9014634146341464,
+    "baseline_recall@10": 0.8741463414634146,
+    "recall@10_diff": 0.027317073170731707,
+    "recall@10_ci95": [
+     0.004007417224888023,
+     0.0514065237711586
+    ],
+    "recall@10_p_raw": 0.0254974502549745,
+    "recall@10_p_holm": 0.0764923507649235,
+    "gained": 62,
+    "lost": 34,
+    "mrr@10_diff": 0.08194502516453736,
+    "mrr@10_ci95": [
+     0.06293299320683683,
+     0.10211894967497437
+    ],
+    "mrr@10_p_raw": 9.999000099990002e-05,
+    "supported": false
+   },
+   {
+    "id": "H4a",
+    "claim": "The hybrid beats the dense model alone",
+    "system": "hybrid_parts_stem_dense",
+    "baseline": "dense",
+    "system_recall@10": 0.9014634146341464,
+    "baseline_recall@10": 0.9160975609756098,
+    "recall@10_diff": -0.014634146341463415,
+    "recall@10_ci95": [
+     -0.041387210928485206,
+     0.008893720893828507
+    ],
+    "recall@10_p_raw": 0.28947105289471053,
+    "recall@10_p_holm": 0.28947105289471053,
+    "gained": 43,
+    "lost": 58,
+    "mrr@10_diff": -0.03401664730933024,
+    "mrr@10_ci95": [
+     -0.05932964731990459,
+     -0.008362618661872651
+    ],
+    "mrr@10_p_raw": 0.008599140085991401,
+    "supported": false
+   },
+   {
+    "id": "H4b",
+    "claim": "The hybrid beats the best lexical system alone",
+    "system": "hybrid_parts_stem_dense",
+    "baseline": "bm25_parts_stem",
+    "system_recall@10": 0.9014634146341464,
+    "baseline_recall@10": 0.784390243902439,
+    "recall@10_diff": 0.11707317073170732,
+    "recall@10_ci95": [
+     0.0921782232446051,
+     0.14326923076923076
+    ],
+    "recall@10_p_raw": 9.999000099990002e-05,
+    "recall@10_p_holm": 0.0005999400059994001,
+    "gained": 127,
+    "lost": 7,
+    "mrr@10_diff": 0.1439992257065428,
+    "mrr@10_ci95": [
+     0.12368112027222672,
+     0.16475067949571998
+    ],
+    "mrr@10_p_raw": 9.999000099990002e-05,
+    "supported": true
+   },
+   {
+    "id": "H5",
+    "claim": "LLM rewriting of unsure queries helps",
+    "system": "hybrid_parts_stem_dense_rewrite",
+    "baseline": "hybrid_parts_stem_dense",
+    "system_recall@10": 0.9073170731707317,
+    "baseline_recall@10": 0.9014634146341464,
+    "recall@10_diff": 0.005853658536585366,
+    "recall@10_ci95": [
+     0.0,
+     0.012392755004766444
+    ],
+    "recall@10_p_raw": 0.10548945105489452,
+    "recall@10_p_holm": 0.21097890210978903,
+    "gained": 7,
+    "lost": 1,
+    "mrr@10_diff": 0.003309717382888115,
+    "mrr@10_ci95": [
+     0.00019263485014845154,
+     0.006956976073301068
+    ],
+    "mrr@10_p_raw": 0.0461953804619538,
+    "supported": false
+   }
+  ]
+ },
+ "headline": {
+  "baseline_system": "bm25_plain",
+  "baseline_recall@10": 0.7082926829268292,
+  "full_pipeline_system": "hybrid_parts_stem_dense_rewrite",
+  "full_pipeline_recall@10": 0.9317073170731708,
+  "full_pipeline_gain_points": 22.3,
+  "dense_system": "dense",
+  "dense_recall@10": 0.9239024390243903,
+  "dense_gain_points": 21.6,
+  "h3_preprocessing_gain_in_hybrid_points": 3.5,
+  "sentence_pipeline": "+22.3 points Recall@10 over plain BM25 on 1,025 German questions (93.2% vs. 70.8% on GermanDPR test, headline pool; +3.5 points inside the dense hybrid from German stemming and compound splitting).",
+  "sentence_dense": "+21.6 points Recall@10 over plain BM25 on 1,025 German questions (92.4% vs. 70.8% on GermanDPR test, headline pool; linguistic preprocessing adds +3.5 points inside the RRF hybrid)."
+ }
+}

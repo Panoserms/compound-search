@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.DS_Store
+
+# Downloaded data and passage embeddings can be rebuilt (python -m compound_search.download; the dense run).
+data/raw/
+data/cache/*
+# The LLM's answers are kept: they are small, and they make the rewriting step repeat exactly without Ollama.
+!data/cache/rewrites_*.json

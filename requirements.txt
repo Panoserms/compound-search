@@ -1,0 +1,12 @@
+# The exact versions the reported results were produced with (Python 3.11.3, macOS, Apple M2).
+# pyproject.toml lists the same packages without pins; install from here to repeat a run exactly:
+#   .venv/bin/pip install -r requirements.txt && .venv/bin/pip install -e . --no-deps
+bm25s==0.3.16
+numpy==2.4.6
+pyarrow==26.0.1
+snowballstemmer==3.1.1
+simplemma==2.0.0
+HanTa==1.2.1
+torch==2.8.0
+transformers==4.57.1
+pytest==9.2.0

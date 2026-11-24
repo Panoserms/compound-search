@@ -1,0 +1,19 @@
+{
+ "first": "labels/compounds_labels.csv",
+ "second": "labels/compounds_labels_ai.csv",
+ "n": 100,
+ "same_cuts": 94,
+ "same_cuts_and_type": 67,
+ "only_first_cuts": [
+  "Siebenjährigen",
+  "Mitgliedern",
+  "Vorschläge"
+ ],
+ "only_second_cuts": [
+  "Soundtrack",
+  "Griechenland"
+ ],
+ "both_cut_differently": [
+  "Waffenstillstand"
+ ]
+}

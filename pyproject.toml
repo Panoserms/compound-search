@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compound-search"
+version = "1.0.0"
+description = "Does German compound splitting and stemming still help retrieval once a dense retriever is added?"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "bm25s==0.3.16",
+    "numpy",
+    "pyarrow",
+    "snowballstemmer",
+    "simplemma",
+    "HanTa",
+]
+
+[project.optional-dependencies]
+# Only the dense retriever needs these. Everything lexical runs without them.
+dense = ["torch", "transformers"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,27 @@
+{
+ "first": "labels/compounds_labels_first_pass.csv",
+ "second": "labels/compounds_labels_ai.csv",
+ "n": 100,
+ "same_cuts": 86,
+ "same_cuts_and_type": 61,
+ "only_first_cuts": [
+  "Wissenschaften",
+  "Preußische",
+  "Judentum",
+  "Siebenjährigen",
+  "Mitgliedern",
+  "Verschiebung",
+  "Infrarot",
+  "Judentums",
+  "Vorschläge",
+  "Zusammenkunft"
+ ],
+ "only_second_cuts": [
+  "Soundtrack",
+  "Griechenland"
+ ],
+ "both_cut_differently": [
+  "Holzfestigkeit",
+  "Waffenstillstand"
+ ]
+}
