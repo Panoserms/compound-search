@@ -1,4 +1,4 @@
-"""Every example and count that the README's prose quotes is looked up in the saved results.
+"""Every example and count that README.md and docs/RESULTS.md quote is looked up in the saved results.
 
 The first write-up of this study contained examples that were not in the data. These tests
 fail if the README names a rank, a count or a word that the saved reports do not contain.
@@ -16,12 +16,13 @@ from compound_search.runs import DROPPED, SHIPPED
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
 README = ROOT / "README.md"
+DETAILS = ROOT / "docs" / "RESULTS.md"
 pytestmark = pytest.mark.skipif(not (RESULTS / "error_analysis_50.json").exists(), reason="results/ not present")
 
 
 @pytest.fixture(scope="module")
 def text() -> str:
-    return README.read_text(encoding="utf-8")
+    return README.read_text(encoding="utf-8") + DETAILS.read_text(encoding="utf-8")
 
 
 @pytest.fixture(scope="module")
@@ -203,7 +204,8 @@ def test_splitter_score_sentences(text):
     assert over(hanta) == ["Sound|track"]
     assert "HanTa split one word that I left whole (*Sound|track*)" in text
     assert all(x["type"] == "name" for x in own["per_word"].values() if not x["gold"] and x["predicted"])
-    assert "my splitter split five, all of them names (" + ", ".join(f"*{w}*" for w in over(own)) + ")" in text
+    assert "my splitter split five (" + ", ".join(f"*{w}*" for w in over(own)) + ")" in text
+    assert "four of them names" in text  # Soundtrack carries the label "name" but is a loanword
     assert missed(own) and missed(hanta)
 
 
@@ -251,3 +253,15 @@ def test_the_chart_is_in_the_readme_and_current(text):
 
     assert "](docs/recall_at_10.svg)" in text
     assert (ROOT / "docs" / "recall_at_10.svg").read_text(encoding="utf-8") == render_svg(load("test_summary.json"))
+
+
+def test_every_quoted_rank_in_the_short_readme_is_also_in_the_details():
+    """The README repeats three examples of docs/RESULTS.md; a rank may not differ between the two."""
+    import re
+
+    short, details = README.read_text(encoding="utf-8"), DETAILS.read_text(encoding="utf-8")
+    quoted = re.findall(r"rank \d+ (?:to|with)[^.;]*?\d+", short)
+    assert quoted
+    for ranks in quoted:
+        numbers = re.findall(r"\d+", ranks)
+        assert any(re.findall(r"\d+", d)[: len(numbers)] == numbers for d in re.findall(r"rank \d+ (?:to|with)[^.;]*", details)), ranks

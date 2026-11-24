@@ -1,9 +1,9 @@
-"""The result tables of the README, written from the files under results/.
+"""The result tables of README.md and docs/RESULTS.md, written from the files under results/.
 
-    python -m compound_search.tables --results results --readme README.md           # rewrite the tables
-    python -m compound_search.tables --results results --readme README.md --check   # exit 1 if they are out of date
+    python -m compound_search.tables --results results           # rewrite the tables
+    python -m compound_search.tables --results results --check   # exit 1 if they are out of date
 
-Each table sits in the README between two marker comments. Nothing between the
+Each table sits between two marker comments. Nothing between the
 markers is typed by hand, so a number in a table cannot drift from the run that
 produced it. `tests/test_tables.py` runs the check.
 """
@@ -111,7 +111,7 @@ def systems_table(systems: dict[str, dict], order: list[str] | tuple[str, ...]) 
         d, s = systems[name][DROPPED], systems[name][SHIPPED]
         rows.append(
             [
-                f"{LABELS.get(name, name)}<br>`{name}`",
+                LABELS.get(name, name),
                 f"{d['recall@1']:.3f}",
                 f"{d['recall@5']:.3f}",
                 f"**{d['recall@10']:.3f}** {_ci(d['recall@10_ci95'])}",
@@ -129,34 +129,44 @@ def hypotheses_table(rows: list[dict], with_predictions: bool = True) -> str:
     out = []
     for r in rows:
         lo, hi = r["recall@10_ci95"]
-        cells = [
-            f"**{r['id']}**",
-            r["claim"],
-            f"`{r['system']}` vs. `{r['baseline']}`",
-        ]
+        cells = [f"**{r['id']}**", r["claim"]]
         if with_predictions:
             cells.append(PREDICTIONS[r["id"]][0])
         cells += [
             f"**{points(r['recall@10_diff'])}** [{points(lo)}, {points(hi)}]",
-            fmt_p(r["recall@10_p_raw"]),
+            "**supported**" if r["supported"] else "**not supported**",
             fmt_p(r["recall@10_p_holm"]),
             f"{r['gained']} / {r['lost']}",
-            "**supported**" if r["supported"] else "**not supported**",
         ]
         if with_predictions:
             cells.append(prediction_outcome(r["id"], r))
         out.append(cells)
-    header = ["", "Claim", "Comparison"]
-    align = ["---", "---", "---"]
+    header = ["", "Claim"]
+    align = ["---", "---"]
     if with_predictions:
         header.append("Predicted (points)")
         align.append("---")
-    header += ["Result in points [95 % CI]", "p", "Holm p", "Questions won / lost", "Verdict"]
-    align += ["---", "---:", "---:", "---:", "---"]
+    header += ["Result in points [95 % CI]", "Verdict", "Corrected p", "Won / lost"]
+    align += ["---", "---", "---:", "---:"]
     if with_predictions:
         header.append("Prediction")
         align.append("---")
     return _table(header, align, out)
+
+
+def short_hypotheses_table(rows: list[dict]) -> str:
+    """The README's table: what was claimed, what I predicted, what came out."""
+    out = [
+        [
+            f"**{r['id']}**",
+            r["claim"],
+            PREDICTIONS[r["id"]][0],
+            f"**{points(r['recall@10_diff'])}**",
+            "supported" if r["supported"] else "**not supported**",
+        ]
+        for r in rows
+    ]
+    return _table(["", "Claim", "Predicted", "Result", "Verdict"], ["---", "---", "---", "---", "---"], out)
 
 
 def dev_table(reports: dict[str, dict]) -> str:
@@ -188,7 +198,7 @@ def splitter_table(evaluation: dict) -> str:
 
 
 def build_tables(results: Path) -> dict[str, str]:
-    """Every generated block, keyed by its marker name."""
+    """Every generated block of docs/RESULTS.md, keyed by its marker name."""
     summary = json.loads((results / "test_summary.json").read_text(encoding="utf-8"))
     dev = {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in sorted((results / "dev").glob("*.json"))}
     tables = {
@@ -203,6 +213,12 @@ def build_tables(results: Path) -> dict[str, str]:
     return tables
 
 
+def build_readme_tables(results: Path) -> dict[str, str]:
+    """The one generated block of README.md."""
+    summary = json.loads((results / "test_summary.json").read_text(encoding="utf-8"))
+    return {"hypotheses-short": short_hypotheses_table(summary["hypotheses"][DROPPED])}
+
+
 def _block(name: str) -> re.Pattern[str]:
     return re.compile(
         rf"(<!-- BEGIN GENERATED: {re.escape(name)} -->\n)(?:.*?\n)?(<!-- END GENERATED: {re.escape(name)} -->)", flags=re.DOTALL
@@ -210,11 +226,11 @@ def _block(name: str) -> re.Pattern[str]:
 
 
 def render(readme: str, tables: dict[str, str]) -> str:
-    """The README with every marked block replaced. A table without its markers is an error."""
+    """The text with every marked block replaced. A table without its markers is an error."""
     for name, table in tables.items():
         pattern = _block(name)
         if not pattern.search(readme):
-            raise ValueError(f"README has no markers for the table {name!r}")
+            raise ValueError(f"no markers for the table {name!r}")
         readme = pattern.sub(lambda m, t=table: m.group(1) + t + "\n" + m.group(2), readme)
     return readme
 
@@ -223,19 +239,21 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--results", type=Path, default=Path("results"))
     parser.add_argument("--readme", type=Path, default=Path("README.md"))
-    parser.add_argument("--check", action="store_true", help="change nothing; exit 1 if the README is out of date")
+    parser.add_argument("--details", type=Path, default=Path("docs/RESULTS.md"))
+    parser.add_argument("--check", action="store_true", help="change nothing; exit 1 if a file is out of date")
     args = parser.parse_args()
 
-    current = args.readme.read_text(encoding="utf-8")
-    updated = render(current, build_tables(args.results))
-    if args.check:
-        if updated != current:
-            print(f"{args.readme} is out of date: run python -m compound_search.tables", file=sys.stderr)
-            raise SystemExit(1)
-        print(f"{args.readme}: tables match {args.results}/")
-        return
-    args.readme.write_text(updated, encoding="utf-8")
-    print(f"wrote {len(build_tables(args.results))} tables to {args.readme}")
+    for path, tables in ((args.readme, build_readme_tables(args.results)), (args.details, build_tables(args.results))):
+        current = path.read_text(encoding="utf-8")
+        updated = render(current, tables)
+        if args.check:
+            if updated != current:
+                print(f"{path} is out of date: run python -m compound_search.tables", file=sys.stderr)
+                raise SystemExit(1)
+            print(f"{path}: tables match {args.results}/")
+            continue
+        path.write_text(updated, encoding="utf-8")
+        print(f"wrote {len(tables)} tables to {path}")
 
 
 if __name__ == "__main__":

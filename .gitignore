@@ -9,3 +9,6 @@ data/raw/
 data/cache/*
 # The LLM's answers are kept: they are small, and they make the rewriting step repeat exactly without Ollama.
 !data/cache/rewrites_*.json
+
+# The one-file HTML report is built locally (python -m compound_search.report_html).
+docs/report.html

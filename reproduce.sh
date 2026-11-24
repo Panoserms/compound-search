@@ -104,9 +104,9 @@ $PYTHON -m compound_search.labels agree \
 
 echo ""
 echo "=== 9. README tables and chart against results/ ==="
-$PYTHON -m compound_search.tables --results results --readme README.md --check
+$PYTHON -m compound_search.tables --results results --check
 $PYTHON -m compound_search.figure --results results --out docs/recall_at_10.svg --check
-$PYTHON -m compound_search.report_html --results results --labels labels --out docs/report.html --check
+$PYTHON -m compound_search.report_html --results results --labels labels --out docs/report.html
 
 echo ""
 echo "Done. All reports written under results/."

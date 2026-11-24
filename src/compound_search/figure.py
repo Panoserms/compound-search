@@ -5,7 +5,7 @@
 
 A dot per system with its 95 % interval, on an axis from 60 % to 100 % (a dot plot,
 not bars, so the axis need not start at zero; the chart says where it starts).
-Plain SVG, no plotting library. The colours follow the reader's light or dark mode.
+Plain SVG, no plotting library. The chart brings its own background, so it reads the same in light and dark mode.
 """
 
 from __future__ import annotations
@@ -40,25 +40,24 @@ PLOT_X0, PLOT_X1 = 372, 772
 VALUE_X = 844
 AXIS_LO, AXIS_HI = 0.60, 1.00
 TICKS = (0.60, 0.70, 0.80, 0.90, 1.00)
-ROW, GROUP_ROW, TOP, BOTTOM = 30, 30, 46, 40
+ROW, GROUP_ROW, TOP, BOTTOM = 30, 32, 74, 50
+
+HIGHLIGHT = ("bm25_parts_stem", "hybrid_parts_stem_dense")  # the linguistic steps, alone and inside the hybrid
 
 STYLE = """
-  text { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1f2328; }
-  .title { font-size: 14px; font-weight: 600; }
-  .group { font-size: 12px; fill: #59636e; }
+  text { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1a1b1c; }
+  .title { font-size: 17px; font-weight: 700; }
+  .group { font-size: 12px; fill: #555b63; }
   .label { font-size: 13px; }
-  .value { font-size: 13px; font-variant-numeric: tabular-nums; }
-  .tick { font-size: 11px; fill: #59636e; }
-  .grid { stroke: #d1d9e0; stroke-width: 1; }
-  .ci { stroke: #59636e; stroke-width: 2; stroke-linecap: round; }
-  .dot { fill: #1f2328; }
-  @media (prefers-color-scheme: dark) {
-    text { fill: #f0f6fc; }
-    .group, .tick { fill: #9198a1; }
-    .grid { stroke: #3d444d; }
-    .ci { stroke: #9198a1; }
-    .dot { fill: #f0f6fc; }
-  }
+  .value { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .tick { font-size: 11px; fill: #555b63; }
+  .frame { fill: #ffffff; stroke: #1a1b1c; stroke-width: 4; }
+  .head { fill: #e3e7eb; }
+  .rule { stroke: #1a1b1c; stroke-width: 4; }
+  .grid { stroke: #d5dbe1; stroke-width: 1; }
+  .ci { stroke: #9aa3ac; stroke-width: 3; stroke-linecap: round; }
+  .dot { fill: #1a1b1c; }
+  .hi { fill: #ff5f14; }
 """.rstrip()
 
 
@@ -80,7 +79,10 @@ def render_svg(summary: dict) -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {WIDTH} {height}" width="{WIDTH}" height="{height}" role="img" '
         f'aria-label="Recall at 10 of the ten tested systems on the {summary["n_queries"]:,} test questions">',
         f"<style>{STYLE}\n</style>",
-        f'<text class="title" x="{LABEL_X}" y="24">Recall@10 on the {summary["n_queries"]:,} held-out test questions, with 95% intervals</text>',
+        f'<rect class="frame" x="2" y="2" width="{WIDTH - 4}" height="{height - 4}"/>',
+        f'<rect class="head" x="4" y="4" width="{WIDTH - 8}" height="52"/>',
+        f'<line class="rule" x1="2" y1="58" x2="{WIDTH - 2}" y2="58"/>',
+        f'<text class="title" x="{LABEL_X}" y="36">Recall@10 on the {summary["n_queries"]:,} held-out test questions, with 95% intervals</text>',
     ]
     for tick in TICKS:
         x = x_of(tick)
@@ -99,7 +101,8 @@ def render_svg(summary: dict) -> str:
         mid = y + ROW / 2
         out.append(f'<text class="label" x="{LABEL_X}" y="{mid + 4.5:.1f}">{escape(LABELS[name])}</text>')
         out.append(f'<line class="ci" x1="{x_of(lo):.1f}" y1="{mid:.1f}" x2="{x_of(hi):.1f}" y2="{mid:.1f}"/>')
-        out.append(f'<circle class="dot" cx="{x_of(score["recall@10"]):.1f}" cy="{mid:.1f}" r="5"/>')
+        dot = "dot hi" if name in HIGHLIGHT else "dot"
+        out.append(f'<circle class="{dot}" cx="{x_of(score["recall@10"]):.1f}" cy="{mid:.1f}" r="6"/>')
         out.append(f'<text class="value" x="{VALUE_X}" y="{mid + 4.5:.1f}" text-anchor="end">{score["recall@10"] * 100:.1f}%</text>')
         y += ROW
     out.append("</svg>")

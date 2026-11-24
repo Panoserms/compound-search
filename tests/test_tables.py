@@ -8,11 +8,12 @@ from pathlib import Path
 import pytest
 
 from compound_search.runs import DROPPED
-from compound_search.tables import PREDICTIONS, build_tables, fmt_p, points, prediction_outcome, render, splitter_table
+from compound_search.tables import PREDICTIONS, build_readme_tables, build_tables, fmt_p, points, prediction_outcome, render, splitter_table
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
 README = ROOT / "README.md"
+DETAILS = ROOT / "docs" / "RESULTS.md"
 needs_results = pytest.mark.skipif(not (RESULTS / "test_summary.json").exists(), reason="results/ not present")
 
 
@@ -59,8 +60,9 @@ def test_render_refuses_a_table_without_markers():
 
 @needs_results
 def test_readme_tables_match_the_saved_results():
-    current = README.read_text(encoding="utf-8")
-    assert render(current, build_tables(RESULTS)) == current, "run: python -m compound_search.tables"
+    for path, tables in ((README, build_readme_tables(RESULTS)), (DETAILS, build_tables(RESULTS))):
+        current = path.read_text(encoding="utf-8")
+        assert render(current, tables) == current, f"{path.name}: run python -m compound_search.tables"
 
 
 @needs_results
@@ -73,7 +75,7 @@ def test_every_hypothesis_has_a_prediction():
 def test_readme_prose_numbers_match_the_saved_results():
     """The sentences around the tables are typed by hand. Their key numbers are checked here."""
     summary = json.loads((RESULTS / "test_summary.json").read_text(encoding="utf-8"))
-    text = README.read_text(encoding="utf-8")
+    text = README.read_text(encoding="utf-8") + DETAILS.read_text(encoding="utf-8")
     systems = summary["systems"]
 
     def r10(name: str) -> str:
